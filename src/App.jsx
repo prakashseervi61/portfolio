@@ -1,0 +1,29 @@
+import React, { Suspense, lazy } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import BackToTop from './components/BackToTop';
+
+const About = lazy(() => import('./components/About'));
+const Experience = lazy(() => import('./components/Experience'));
+const Projects = lazy(() => import('./components/Projects'));
+const Education = lazy(() => import('./components/Education'));
+const Contact = lazy(() => import('./components/Contact'));
+
+function App() {
+  return (
+    <div className="min-h-screen w-full overflow-x-hidden">
+      <Navbar />
+      <Hero />
+      <Suspense fallback={<div>Loading...</div>}>
+        <About />
+        <Experience />
+        <Projects />
+        <Education />
+        <Contact />
+      </Suspense>
+      <BackToTop />
+    </div>
+  );
+}
+
+export default App;

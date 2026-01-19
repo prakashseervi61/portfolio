@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Prakash | Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Prakash — Full Stack Developer portfolio. Projects, skills, education, and contact."
+    />
+
+    <!-- Helps browser pick correct theme colors for UI -->
+    <meta name="theme-color" content="#fffaf3" />
+
+    <!-- (Optional) Smooth font rendering -->
+    <meta name="color-scheme" content="light" />
+
+    <!-- Preconnect for faster font loading (if you use Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Example fonts matching your earlier style (optional).
+         If you already load fonts another way, you can remove this. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- App entry (Vite). If using CRA, this line won’t exist in index.html. -->
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Tiny global CSS to prevent sideways scroll and keep scrolling smooth -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden; /* kills horizontal scroll */
+        background: #fffaf3;
+        scroll-behavior: smooth; /* smooth anchor scrolling */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Prevent images/canvas/svg from overflowing */
+      img,
+      svg,
+      canvas,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Better smooth scrolling for iOS */
+      body {
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Respect users who prefer reduced motion (also reduces jank) */
+      @media (prefers-reduced-motion: reduce) {
+        html,
+        body {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
