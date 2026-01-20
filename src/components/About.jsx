@@ -1,4 +1,3 @@
-import React from 'react';
 import { Download, CheckCircle2, FileCode, AppWindow, GitBranch } from 'lucide-react';
 import StickerLayer from './StickerLayer';
 
@@ -63,15 +62,15 @@ const About = () => {
           <div className="bg-white/80 border border-black/5 rounded-3xl shadow-lg
                           transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-8">
             <p className="text-gray-600 leading-relaxed">
-              I am a passionate Java Full Stack Developer dedicated to crafting robust, scalable, and high-performance web applications. My expertise lies in turning complex problems into elegant software solutions, with a keen eye for detail and a commitment to writing clean, maintainable code.
+              I’m a passionate web developer focused on building clean, responsive, and reliable web applications. I enjoy turning complex problems into simple, maintainable solutions with strong attention to detail and a commitment to writing readable code.
             </p>
             <ul className="mt-6 space-y-4">
-              <Highlight icon={FileCode}>Core expertise in Java and the Spring Boot ecosystem.</Highlight>
+              <Highlight icon={FileCode}>Strong in C++ and Python with solid problem-solving skills.</Highlight>
               <Highlight icon={AppWindow}>Building modern, responsive frontends with React & Tailwind.</Highlight>
               <Highlight icon={GitBranch}>Proficient in version control and collaborative development workflows.</Highlight>
             </ul>
             <a 
-              href="/resume.pdf" 
+              href="resume.pdf" 
               download="Prakash_Resume.pdf" 
               className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-orange-600
                           transition-transform duration-300 hover:translate-x-1"

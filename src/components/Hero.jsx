@@ -32,15 +32,14 @@ const Hero = () => {
               </span>
             </h1>
             <p className="mt-4 text-lg sm:text-xl font-medium text-gray-600">
-              Java Full Stack Developer
+              Web Developer
             </p>
             <p className="mt-4 max-w-xl mx-auto lg:mx-0 text-gray-500">
-              I build and maintain responsive and scalable web applications, transforming ideas into reality with a focus on performance and user experience.
-            </p>
+              I build and maintain responsive, scalable web applications, turning ideas into real products with a focus on performance and user experience.</p>
             
             <div className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
               <a 
-                href="/resume.pdf" 
+                href="resume.pdf" 
                 download="Prakash_Resume.pdf" 
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-br from-[#ff9f45] to-[#d35400] shadow-[0_10px_25px_rgba(211,84,0,0.3)] transition-all duration-300 hover:shadow-[0_12px_30px_rgba(211,84,0,0.4)] hover:-translate-y-1"
               >
@@ -48,7 +47,7 @@ const Hero = () => {
                 Download Resume
               </a>
               <a 
-                href="/resume.pdf" 
+                href="resume.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-[#d35400] bg-transparent border-2 border-[#d35400] transition-all duration-300 hover:bg-[rgba(211,84,0,0.1)] hover:-translate-y-1"

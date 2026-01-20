@@ -49,7 +49,7 @@ const Experience = () => {
     {
       icon: CodeXml,
       title: "Personal Portfolio Website",
-      duration: "Ongoing",
+      duration: "2025",
       details: ["Developed a responsive portfolio using React and Tailwind CSS.", "Implemented interactive UI components and a modern, clean design."],
       techStack: ["React", "Tailwind CSS", "JavaScript", "Vite"],
     },
