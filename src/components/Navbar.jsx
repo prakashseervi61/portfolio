@@ -27,19 +27,23 @@ const Navbar = () => {
   // Callback for IntersectionObserver
   const handleIntersection = useCallback((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        sectionElements.current.set(entry.target.id, entry);
-      } else {
-        sectionElements.current.delete(entry.target.id);
-      }
+      // Store all intersection states
+      sectionElements.current.set(entry.target.id, entry);
     });
     
-    if (isClickScrolling.current || window.scrollY < HOME_OVERRIDE_THRESHOLD) return;
+    if (isClickScrolling.current) return;
 
-    const intersecting = Array.from(sectionElements.current.values());
+    // Direct override for the top of the page
+    if (window.scrollY < HOME_OVERRIDE_THRESHOLD) {
+      setActiveSection('home');
+      return;
+    }
+
+    const intersecting = Array.from(sectionElements.current.values())
+      .filter(e => e.isIntersecting);
     
     if (intersecting.length > 0) {
-      // Pick the most prominent section
+      // Pick the section with the highest intersection ratio
       const best = intersecting.reduce((p, c) => (p.intersectionRatio > c.intersectionRatio ? p : c));
       setActiveSection(best.target.id);
     }
@@ -58,21 +62,33 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    // Setup IntersectionObserver
     observer.current = new IntersectionObserver(handleIntersection, {
       root: null,
-      rootMargin: "-20% 0px -55% 0px",
-      threshold: [0, 0.1, 0.4, 0.8],
+      rootMargin: "-25% 0px -45% 0px",
+      threshold: [0, 0.1, 0.2, 0.4, 0.6, 0.8],
     });
 
-    navLinks.forEach(link => {
-      const el = document.getElementById(link.id);
-      if (el) observer.current.observe(el);
-    });
+    const currentObserver = observer.current;
+
+    const attachObservers = () => {
+      navLinks.forEach(link => {
+        const el = document.getElementById(link.id);
+        if (el) currentObserver.observe(el);
+      });
+    };
+
+    // Initial attach
+    attachObservers();
+
+    // Re-check periodically for lazy-loaded sections (cleaner than full body MutationObserver)
+    const interval = setInterval(attachObservers, 2000);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      if (observer.current) observer.current.disconnect();
+      currentObserver.disconnect();
+      clearInterval(interval);
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
