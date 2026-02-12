@@ -1,9 +1,13 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Download, Eye, Mail, Linkedin, Github, Code } from 'lucide-react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import StickerLayer from './StickerLayer';
 import profileImg from '../assets/images/profile_image.png';
 
 const Hero = () => {
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+
   const socialLinks = [
     { icon: Linkedin, href: 'https://www.linkedin.com/in/prakash-v-446194326/' },
     { icon: Github, href: 'https://github.com/prakashseervi61' },
@@ -24,20 +28,50 @@ const Hero = () => {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-12 items-center">
-          <div className="lg:col-span-7 text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-800">
+          <motion.div 
+            className="lg:col-span-7 text-center lg:text-left"
+            initial={{ opacity: 0, x: isMobile ? 0 : -50, y: isMobile ? 30 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h1 
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-800"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
               Hi, I’m{' '}
               <span className="bg-gradient-to-r from-[#ff9f45] to-[#d35400] text-transparent bg-clip-text">
                 Prakash
               </span>
-            </h1>
-            <p className="mt-4 text-lg sm:text-xl font-medium text-gray-600">
+            </motion.h1>
+            <motion.p 
+              className="mt-4 text-lg sm:text-xl font-medium text-gray-600"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
               Web Developer
-            </p>
-            <p className="mt-4 max-w-xl mx-auto lg:mx-0 text-gray-500">
-              I build and maintain responsive, scalable web applications, turning ideas into real products with a focus on performance and user experience.</p>
+            </motion.p>
+            <motion.p 
+              className="mt-4 max-w-xl mx-auto lg:mx-0 text-gray-500"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+            >
+              I build and maintain responsive, scalable web applications, turning ideas into real products with a focus on performance and user experience.</motion.p>
             
-            <div className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+            <motion.div 
+              className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
               <a 
                 href="resume.pdf" 
                 download="Prakash_Resume.pdf" 
@@ -55,32 +89,47 @@ const Hero = () => {
                 <Eye className="w-5 h-5" />
                 View Resume
               </a>
-            </div>
+            </motion.div>
 
-            <div className="mt-8 flex justify-center lg:justify-start gap-3">
+            <motion.div 
+              className="mt-8 flex justify-center lg:justify-start gap-3"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ delay: 1, duration: 0.6 }}
+            >
               {socialLinks.map((social, index) => (
-                <a 
+                <motion.a 
                   key={index} 
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 flex items-center justify-center rounded-full text-[#d35400] border-2 border-[rgba(211,84,0,0.3)] bg-white/50 transition-all duration-300 hover:text-white hover:border-transparent hover:bg-gradient-to-br from-[#ff9f45] to-[#d35400] hover:shadow-[0_8px_25px_rgba(211,84,0,0.35)] hover:-translate-y-1"
                   aria-label={`Visit my ${social.href.includes('mailto') ? 'Email' : social.href.split('.')[1]}`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <social.icon className="w-6 h-6" />
-                </a>
+                </motion.a>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="lg:col-span-5 flex justify-center items-center">
-            <div className="w-full max-w-[240px] lg:max-w-[260px] h-[380px] lg:h-[400px] mx-auto overflow-hidden">
+          <motion.div 
+            className="lg:col-span-5 flex justify-center items-center"
+            initial={{ opacity: 0, scale: 0.8, y: isMobile ? 30 : 0 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 1 }}
+          >
+            <div className="w-full max-w-[240px] lg:max-w-[260px] h-[380px] lg:h-[400px] mx-auto overflow-hidden rounded-2xl">
               <img src={profileImg} alt="Prakash" className="w-full h-full object-cover object-top select-none" width="240" height="380" loading="lazy" fetchPriority="high" decoding="async" />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
+
 export default Hero;

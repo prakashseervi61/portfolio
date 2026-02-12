@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const NAVBAR_HEIGHT = 72;
@@ -136,20 +137,37 @@ const Navbar = () => {
   
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[9999] bg-[#fffaf3]/80 backdrop-blur-md shadow-sm border-b border-black/5">
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className="fixed top-0 left-0 w-full z-[9999] bg-[#fffaf3]/80 backdrop-blur-md shadow-sm border-b border-black/5"
+      >
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-24">
           <div className="flex items-center justify-between h-16">
-            <a href="#home" onClick={(e) => { e.preventDefault(); handleLinkClick('home'); }} className="text-2xl font-bold text-[#d35400]">
+            <motion.a 
+              href="#home" 
+              onClick={(e) => { e.preventDefault(); handleLinkClick('home'); }} 
+              className="text-2xl font-bold text-[#d35400]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Prakash
-            </a>
+            </motion.a>
             <div className="hidden md:flex items-center gap-2 lg:gap-4 whitespace-nowrap">
               {navLinks.map((link) => (
                 <a key={link.id} href={`#${link.id}`} onClick={(e) => { e.preventDefault(); handleLinkClick(link.id); }}
-                   className={`px-4 py-2 text-sm lg:text-base rounded-full font-semibold text-[#333] transition-all duration-300 ${
+                   className={`relative px-4 py-2 text-sm lg:text-base rounded-full font-semibold text-[#333] transition-all duration-300 ${
                      activeSection === link.id
-                       ? 'text-white bg-gradient-to-br from-[#ff9f45] to-[#d35400] shadow-md'
+                       ? 'text-white'
                        : 'hover:text-[#d35400] hover:bg-[rgba(211,84,0,0.12)]'
                    }`}>
+                  {activeSection === link.id && (
+                    <motion.div 
+                      layoutId="nav-bg"
+                      className="absolute inset-0 bg-gradient-to-br from-[#ff9f45] to-[#d35400] rounded-full shadow-md z-[-1]"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
                   {link.title}
                 </a>
               ))}
@@ -165,33 +183,41 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
-      {open && (
-        <>
-          <div 
-            className="fixed inset-0 bg-black/30 z-[9998]"
-            onClick={() => setOpen(false)}
-            aria-hidden="true"
-          ></div>
-          <div // This is the dropdown panel
-            className="fixed top-[72px] left-0 right-0 z-[9999] md:hidden w-full shadow-lg bg-[#fffaf3] px-6 py-4 rounded-b-xl"
-          >
-            <div className="flex flex-col items-start gap-2">
-              {navLinks.map((link) => (
-                <a key={link.id} href={`#${link.id}`} onClick={(e) => { e.preventDefault(); handleLinkClick(link.id); }}
-                   className={`px-4 py-3 rounded-full font-semibold text-[#333] transition-all duration-300 w-full text-left ${
-                     activeSection === link.id
-                       ? 'text-white bg-gradient-to-br from-[#ff9f45] to-[#d35400] shadow-md'
-                       : 'hover:text-[#d35400] hover:bg-[rgba(211,84,0,0.12)]'
-                   }`}>
-                  {link.title}
-                </a>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/30 z-[9998]"
+              onClick={() => setOpen(false)}
+              aria-hidden="true"
+            ></motion.div>
+            <motion.div 
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              className="fixed top-[72px] left-0 right-0 z-[9999] md:hidden w-full shadow-lg bg-[#fffaf3] px-6 py-4 rounded-b-xl"
+            >
+              <div className="flex flex-col items-start gap-2">
+                {navLinks.map((link) => (
+                  <a key={link.id} href={`#${link.id}`} onClick={(e) => { e.preventDefault(); handleLinkClick(link.id); }}
+                     className={`px-4 py-3 rounded-full font-semibold text-[#333] transition-all duration-300 w-full text-left ${
+                       activeSection === link.id
+                         ? 'text-white bg-gradient-to-br from-[#ff9f45] to-[#d35400] shadow-md'
+                         : 'hover:text-[#d35400] hover:bg-[rgba(211,84,0,0.12)]'
+                     }`}>
+                    {link.title}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };

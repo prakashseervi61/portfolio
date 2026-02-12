@@ -1,20 +1,31 @@
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Download, CheckCircle2, FileCode, AppWindow, GitBranch } from 'lucide-react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import StickerLayer from './StickerLayer';
 
 const Highlight = ({ icon: Icon, children }) => (
-  <li className="flex items-center gap-3">
+  <motion.li 
+    className="flex items-center gap-3"
+    initial={{ opacity: 0, x: -10 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: false }}
+  >
     <Icon className="w-5 h-5 text-orange-600 flex-shrink-0" />
     <span className="text-gray-700">{children}</span>
-  </li>
+  </motion.li>
 );
 
 const SkillItem = ({ name }) => (
-  <div className="flex items-center gap-2.5 p-2 bg-gray-50/70 border border-gray-200/80 rounded-xl
+  <motion.div 
+    className="flex items-center gap-2.5 p-2 bg-gray-50/70 border border-gray-200/80 rounded-xl
                   transition-all duration-300
-                  hover:border-orange-300 hover:bg-orange-50/70 hover:-translate-y-px hover:shadow-sm">
+                  hover:border-orange-300 hover:bg-orange-50/70 hover:-translate-y-px hover:shadow-sm"
+    whileHover={{ scale: 1.02, x: 3 }}
+  >
     <CheckCircle2 className="w-5 h-5 text-orange-500" />
     <span className="font-medium text-sm text-gray-700">{name}</span>
-  </div>
+  </motion.div>
 );
 
 const SkillColumn = ({ title, skills }) => (
@@ -30,6 +41,8 @@ const SkillColumn = ({ title, skills }) => (
 );
 
 const About = () => {
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+
   const skills = {
     Languages: ["C++","Python", "JavaScript", "SQL"],
     Frameworks: ["Spring Boot", "React", "Tailwind CSS"],
@@ -47,7 +60,13 @@ const About = () => {
       <StickerLayer variant="about" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-800">
             About{' '}
             <span className="bg-gradient-to-r from-[#ff9f45] to-[#d35400] text-transparent bg-clip-text">
@@ -55,12 +74,17 @@ const About = () => {
             </span>
           </h2>
           <p className="mt-2 text-lg text-gray-500">Who I am</p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Optimized About Card */}
-          <div className="bg-white/80 border border-black/5 rounded-3xl shadow-lg
-                          transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-8">
+          <motion.div 
+            className="bg-white/80 border border-black/5 rounded-3xl shadow-lg
+                          transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-8"
+            initial={{ opacity: 0, x: isMobile ? 0 : -30, y: isMobile ? 30 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6 }}
+          >
             <p className="text-gray-600 leading-relaxed">
               I’m a passionate web developer focused on building clean, responsive, and reliable web applications. I enjoy turning complex problems into simple, maintainable solutions with strong attention to detail and a commitment to writing readable code.
             </p>
@@ -75,19 +99,24 @@ const About = () => {
               className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-orange-600
                           transition-transform duration-300 hover:translate-x-1"
             >
-              Download Resume <Download />
+              Download Resume <Download className="w-4 h-4" />
             </a>
-          </div>
+          </motion.div>
 
-          {/* Optimized Skills Card */}
-          <div className="bg-white/80 border border-black/5 rounded-3xl shadow-lg
-                          transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-8">
+          <motion.div 
+            className="bg-white/80 border border-black/5 rounded-3xl shadow-lg
+                          transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-8"
+            initial={{ opacity: 0, x: isMobile ? 0 : 30, y: isMobile ? 30 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               <SkillColumn title="Languages" skills={skills.Languages} />
               <SkillColumn title="Frameworks" skills={skills.Frameworks} />
               <SkillColumn title="Tools" skills={skills.Tools} />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -95,3 +124,5 @@ const About = () => {
 };
 
 export default About;
+
+
