@@ -43,7 +43,7 @@ const Hero = () => {
               transition={{ delay: 0.2, duration: 0.6 }}
             >
               Hi, I’m{' '}
-              <span className="bg-gradient-to-r from-[#ff9f45] to-[#d35400] text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-[#ff9f45] via-[#d35400] to-[#ff9f45] text-transparent bg-clip-text animate-gradient-flow">
                 Prakash
               </span>
             </motion.h1>
@@ -116,14 +116,22 @@ const Hero = () => {
           </motion.div>
 
           <motion.div 
-            className="lg:col-span-5 flex justify-center items-center"
-            initial={{ opacity: 0, scale: 0.8, y: isMobile ? 30 : 0 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: false }}
-            transition={{ duration: 1 }}
+            className="lg:col-span-12 xl:col-span-5 flex justify-center items-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }} 
+            transition={{ duration: 0.8 }}
           >
-            <div className="w-full max-w-[240px] lg:max-w-[260px] h-[380px] lg:h-[400px] mx-auto overflow-hidden rounded-2xl">
-              <img src={profileImg} alt="Prakash" className="w-full h-full object-cover object-top select-none" width="240" height="380" loading="lazy" fetchPriority="high" decoding="async" />
+            <div className="w-full max-w-[240px] lg:max-w-[260px] h-[350px] lg:h-[380px] mx-auto overflow-hidden rounded-2xl">
+              <img 
+                src={profileImg} 
+                alt="Prakash" 
+                className="w-full h-full object-cover object-top select-none" 
+                width="240" 
+                height="350" 
+                fetchPriority="high" 
+                decoding="async" 
+              />
             </div>
           </motion.div>
         </div>

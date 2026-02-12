@@ -26,26 +26,29 @@ const Navbar = () => {
 
   // Callback for IntersectionObserver
   const handleIntersection = useCallback((entries) => {
-    entries.forEach(entry => sectionElements.current.set(entry.target.id, entry));
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        sectionElements.current.set(entry.target.id, entry);
+      } else {
+        sectionElements.current.delete(entry.target.id);
+      }
+    });
     
     if (isClickScrolling.current || window.scrollY < HOME_OVERRIDE_THRESHOLD) return;
 
-    const intersecting = Array.from(sectionElements.current.values()).filter(e => e.isIntersecting);
+    const intersecting = Array.from(sectionElements.current.values());
     
     if (intersecting.length > 0) {
+      // Pick the most prominent section
       const best = intersecting.reduce((p, c) => (p.intersectionRatio > c.intersectionRatio ? p : c));
       setActiveSection(best.target.id);
     }
   }, []);
 
-  // Scroll listener for Home Override
   const handleScroll = useCallback(() => {
     if (!ticking.current) {
       window.requestAnimationFrame(() => {
-        const homeElement = document.getElementById('home');
-        const homeTop = homeElement?.getBoundingClientRect().top;
-        
-        if (window.scrollY < HOME_OVERRIDE_THRESHOLD || (homeTop !== undefined && homeTop > 0 && homeTop <= NAVBAR_HEIGHT + 20)) {
+        if (window.scrollY < HOME_OVERRIDE_THRESHOLD) {
           setActiveSection('home');
         }
         ticking.current = false;
@@ -55,52 +58,21 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Initialize IntersectionObserver
     observer.current = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: "-20% 0px -55% 0px",
-      threshold: [0, 0.1, 0.25, 0.4, 0.6, 0.8],
-    });
-    const currentObserver = observer.current;
-
-    // Function to observe a section
-    const observeSection = (id) => {
-      const element = document.getElementById(id);
-      if (element && !sectionElements.current.has(id)) { // Only observe if not already observed
-        currentObserver.observe(element);
-      }
-    };
-
-    // Initial observation for already mounted sections
-    navLinks.forEach(link => observeSection(link.id));
-
-    // Setup MutationObserver to watch for newly added sections
-    const mutationObserver = new MutationObserver((mutations) => {
-      mutations.forEach(mutation => {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          mutation.addedNodes.forEach(node => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              navLinks.forEach(link => {
-                if (node.id === link.id || node.querySelector(`#${link.id}`)) {
-                  observeSection(link.id);
-                }
-              });
-            }
-          });
-        }
-      });
+      threshold: [0, 0.1, 0.4, 0.8],
     });
 
-    // Observe changes in the document body
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    navLinks.forEach(link => {
+      const el = document.getElementById(link.id);
+      if (el) observer.current.observe(el);
+    });
 
-    // Add scroll listener
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Cleanup
     return () => {
-      currentObserver.disconnect();
-      mutationObserver.disconnect();
+      if (observer.current) observer.current.disconnect();
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };

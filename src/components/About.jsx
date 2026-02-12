@@ -82,7 +82,7 @@ const About = () => {
                           transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-8"
             initial={{ opacity: 0, x: isMobile ? 0 : -30, y: isMobile ? 30 : 0 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <p className="text-gray-600 leading-relaxed">
@@ -108,7 +108,7 @@ const About = () => {
                           transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-8"
             initial={{ opacity: 0, x: isMobile ? 0 : 30, y: isMobile ? 30 : 0 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">

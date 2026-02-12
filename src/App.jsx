@@ -9,20 +9,24 @@ const Projects = lazy(() => import('./components/Projects'));
 const Education = lazy(() => import('./components/Education'));
 const Contact = lazy(() => import('./components/Contact'));
 
+import { MotionConfig } from 'framer-motion';
+
 function App() {
   return (
-    <div className="min-h-screen w-full overflow-x-hidden">
-      <Navbar />
-      <Hero />
-      <Suspense fallback={<div>Loading...</div>}>
-        <About />
-        <Experience />
-        <Projects />
-        <Education />
-        <Contact />
-      </Suspense>
-      <BackToTop />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen w-full overflow-x-hidden bg-[#fffaf3]">
+        <Navbar />
+        <Hero />
+        <Suspense fallback={<div className="h-screen bg-[#fffaf3]" />}>
+          <About />
+          <Experience />
+          <Projects />
+          <Education />
+          <Contact />
+        </Suspense>
+        <BackToTop />
+      </div>
+    </MotionConfig>
   );
 }
 

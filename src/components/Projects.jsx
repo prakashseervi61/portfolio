@@ -22,7 +22,7 @@ const ProjectCard = ({ project, index, isMobile }) => (
                   flex flex-col overflow-hidden"
     initial={{ opacity: 0, x: isMobile ? 0 : (index % 2 === 0 ? -30 : 30), y: isMobile ? 30 : 0 }}
     whileInView={{ opacity: 1, x: 0, y: 0 }}
-    viewport={{ once: false }}
+    viewport={{ once: true }}
     transition={{ delay: index * 0.1, duration: 0.5 }}
   >
     <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="block group">

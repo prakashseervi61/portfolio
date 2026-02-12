@@ -134,7 +134,7 @@ const Education = () => {
             className="absolute top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#ffb347] to-[#d35400] z-0 left-6 md:left-1/2 md:-translate-x-1/2"
             initial={{ height: 0 }}
             whileInView={{ height: "100%" }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
           ></motion.div>
           <div className="flex flex-col gap-y-12 md:gap-y-0">

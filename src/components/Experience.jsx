@@ -29,7 +29,7 @@ const ExperienceCard = ({ icon: Icon, title, duration, details, techStack, index
                   transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
     initial={{ opacity: 0, x: isMobile ? 0 : (index % 2 === 0 ? -30 : 30), y: isMobile ? 30 : 0 }}
     whileInView={{ opacity: 1, x: 0, y: 0 }}
-    viewport={{ once: false }}
+    viewport={{ once: true }}
     transition={{ delay: index * 0.1, duration: 0.5 }}
   >
     <div className="flex items-start gap-4">
