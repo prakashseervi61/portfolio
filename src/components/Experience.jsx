@@ -70,8 +70,8 @@ const Experience = () => {
       icon: School,
       title: "Self-learning & Skill Development",
       duration: "2024–Present",
-      details: ["Focused on mastering Data Structures & Algorithms in Java.", "Practiced building RESTful APIs with Spring Boot and JPA."],
-      techStack: ["Java", "DSA", "Spring Boot", "JPA"],
+      details: ["Focused on mastering Data Structures & Algorithms in C++.", "Practiced building RESTful APIs with Spring Boot and JPA."],
+      techStack: ["C++", "DSA", "Spring Boot", "JPA"],
     },
   ];
 
