@@ -110,7 +110,7 @@ const Experience = () => {
         >
           <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">Internship Objective</h3>
           <p className="text-center text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            I am eager to secure an internship role as a Java Full Stack, Backend, or Frontend Developer. My goal is to apply my problem-solving skills and technical knowledge to contribute to real-world projects, while learning from experienced professionals and growing within a collaborative team environment.
+            I am eager to secure an internship role as a Frontend or Backend Developer. My goal is to apply my problem-solving skills and technical knowledge to contribute to real-world projects, while learning from experienced professionals and growing within a collaborative team environment.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             <InterestChip>Spring Boot</InterestChip>
