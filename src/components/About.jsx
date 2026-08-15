@@ -94,7 +94,7 @@ const About = () => {
               <Highlight icon={GitBranch}>Proficient in version control and collaborative development workflows.</Highlight>
             </ul>
             <a 
-              href="resume.pdf" 
+              href="PrakashResume.pdf" 
               download="Prakash_Resume.pdf" 
               className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-orange-600
                           transition-transform duration-300 hover:translate-x-1"

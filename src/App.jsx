@@ -1,14 +1,12 @@
-import React, { Suspense, lazy } from 'react';
+// ponytail: single-page, all sections render at mount — lazy/Suspense split no work
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BackToTop from './components/BackToTop';
-
-const About = lazy(() => import('./components/About'));
-const Experience = lazy(() => import('./components/Experience'));
-const Projects = lazy(() => import('./components/Projects'));
-const Education = lazy(() => import('./components/Education'));
-const Contact = lazy(() => import('./components/Contact'));
-
+import About from './components/About';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Education from './components/Education';
+import Contact from './components/Contact';
 import { MotionConfig } from 'framer-motion';
 
 function App() {
@@ -17,13 +15,11 @@ function App() {
       <div className="min-h-screen w-full overflow-x-hidden bg-[#fffaf3]">
         <Navbar />
         <Hero />
-        <Suspense fallback={<div className="h-screen bg-[#fffaf3]" />}>
-          <About />
-          <Experience />
-          <Projects />
-          <Education />
-          <Contact />
-        </Suspense>
+        <About />
+        <Experience />
+        <Projects />
+        <Education />
+        <Contact />
         <BackToTop />
       </div>
     </MotionConfig>

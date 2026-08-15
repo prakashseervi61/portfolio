@@ -13,7 +13,6 @@ const Navbar = () => {
   const scrollTimeout = useRef(null);
   const observer = useRef(null); // IntersectionObserver
   const sectionElements = useRef(new Map()); // Map to store observed section elements
-  const ticking = useRef(false);
 
   const navLinks = [
     { id: 'home', title: 'Home' },
@@ -49,18 +48,6 @@ const Navbar = () => {
     }
   }, []);
 
-  const handleScroll = useCallback(() => {
-    if (!ticking.current) {
-      window.requestAnimationFrame(() => {
-        if (window.scrollY < HOME_OVERRIDE_THRESHOLD) {
-          setActiveSection('home');
-        }
-        ticking.current = false;
-      });
-      ticking.current = true;
-    }
-  }, []);
-
   useEffect(() => {
     // Setup IntersectionObserver
     observer.current = new IntersectionObserver(handleIntersection, {
@@ -78,21 +65,14 @@ const Navbar = () => {
       });
     };
 
-    // Initial attach
+    // Initial attach — sections all render at mount, no lazy-loading anymore
     attachObservers();
-
-    // Re-check periodically for lazy-loaded sections (cleaner than full body MutationObserver)
-    const interval = setInterval(attachObservers, 2000);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       currentObserver.disconnect();
-      clearInterval(interval);
-      window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, [handleIntersection, handleScroll]);
+  }, [handleIntersection]);
 
   // Effect to prevent body scroll when mobile menu is open
   useEffect(() => {
