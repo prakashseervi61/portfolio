@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+# Design docs (not for git)
+DESIGN.md
+
+# Browser test artifacts
+.playwright-mcp/

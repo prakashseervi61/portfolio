@@ -1,189 +1,119 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 
-const NAVBAR_HEIGHT = 72;
-const HOME_OVERRIDE_THRESHOLD = 120; // As per requirement: scrollY < 120
+const SOCIAL_LINKS = [
+  { name: 'github', url: 'https://github.com/prakashseervi61' },
+  { name: 'linkedin', url: 'https://www.linkedin.com/in/prakash-v-446194326/' },
+  { name: 'leetcode', url: 'https://leetcode.com/u/r5rxBOU1qw/' },
+  { name: 'email', url: 'mailto:prakashseervi1503@gmail.com' },
+];
+
+const MENU_LINKS = [
+  { name: 'Home', id: 'home' },
+  { name: 'About Me', id: 'about' },
+  { name: 'Stack', id: 'stack' },
+  { name: 'Experience', id: 'experience' },
+  { name: 'Projects', id: 'projects' },
+  { name: 'Education', id: 'education' },
+  { name: 'Contact', id: 'contact' },
+];
+
+const COLORS = [
+  'bg-yellow-500 text-black',
+  'bg-blue-500 text-white',
+  'bg-teal-500 text-black',
+  'bg-indigo-500 text-white',
+];
 
 const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('home');
   const [open, setOpen] = useState(false);
-  
-  const isClickScrolling = useRef(false);
-  const scrollTimeout = useRef(null);
-  const observer = useRef(null); // IntersectionObserver
-  const sectionElements = useRef(new Map()); // Map to store observed section elements
 
-  const navLinks = [
-    { id: 'home', title: 'Home' },
-    { id: 'about', title: 'About' },
-    { id: 'experience', title: 'Experience' },
-    { id: 'projects', title: 'Projects' },
-    { id: 'education', title: 'Education' },
-    { id: 'contact', title: 'Contact' },
-  ];
-
-  // Callback for IntersectionObserver
-  const handleIntersection = useCallback((entries) => {
-    entries.forEach(entry => {
-      // Store all intersection states
-      sectionElements.current.set(entry.target.id, entry);
-    });
-    
-    if (isClickScrolling.current) return;
-
-    // Direct override for the top of the page
-    if (window.scrollY < HOME_OVERRIDE_THRESHOLD) {
-      setActiveSection('home');
-      return;
-    }
-
-    const intersecting = Array.from(sectionElements.current.values())
-      .filter(e => e.isIntersecting);
-    
-    if (intersecting.length > 0) {
-      // Pick the section with the highest intersection ratio
-      const best = intersecting.reduce((p, c) => (p.intersectionRatio > c.intersectionRatio ? p : c));
-      setActiveSection(best.target.id);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Setup IntersectionObserver
-    observer.current = new IntersectionObserver(handleIntersection, {
-      root: null,
-      rootMargin: "-25% 0px -45% 0px",
-      threshold: [0, 0.1, 0.2, 0.4, 0.6, 0.8],
-    });
-
-    const currentObserver = observer.current;
-
-    const attachObservers = () => {
-      navLinks.forEach(link => {
-        const el = document.getElementById(link.id);
-        if (el) currentObserver.observe(el);
-      });
-    };
-
-    // Initial attach — sections all render at mount, no lazy-loading anymore
-    attachObservers();
-
-    return () => {
-      currentObserver.disconnect();
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-    };
-  }, [handleIntersection]);
-
-  // Effect to prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = ''; // Ensure overflow is reset on unmount
-    };
-  }, [open]);
-
-  const handleLinkClick = (id) => {
-    isClickScrolling.current = true;
-    setActiveSection(id);
+  const scrollTo = (id) => {
     setOpen(false);
-
-    const element = document.getElementById(id);
-    if (element) {
-      const y = element.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-
-    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-    scrollTimeout.current = setTimeout(() => {
-      isClickScrolling.current = false;
-    }, 500);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
-  
+
   return (
     <>
-      <motion.nav 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className="fixed top-0 left-0 w-full z-[9999] bg-[#fffaf3]/80 backdrop-blur-md shadow-sm border-b border-black/5"
-      >
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-24">
-          <div className="flex items-center justify-between h-16">
-            <motion.a 
-              href="#home" 
-              onClick={(e) => { e.preventDefault(); handleLinkClick('home'); }} 
-              className="text-2xl font-bold text-[#d35400]"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Prakash
-            </motion.a>
-            <div className="hidden md:flex items-center gap-2 lg:gap-4 whitespace-nowrap">
-              {navLinks.map((link) => (
-                <a key={link.id} href={`#${link.id}`} onClick={(e) => { e.preventDefault(); handleLinkClick(link.id); }}
-                   className={`relative px-4 py-2 text-sm lg:text-base rounded-full font-semibold text-[#333] transition-all duration-300 ${
-                     activeSection === link.id
-                       ? 'text-white'
-                       : 'hover:text-[#d35400] hover:bg-[rgba(211,84,0,0.12)]'
-                   }`}>
-                  {activeSection === link.id && (
-                    <motion.div 
-                      layoutId="nav-bg"
-                      className="absolute inset-0 bg-gradient-to-br from-[#ff9f45] to-[#d35400] rounded-full shadow-md z-[-1]"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  {link.title}
-                </a>
-              ))}
-            </div>
-            <div className="md:hidden">
-              <button onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"} className="w-10 h-10 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-                {open ? (
-                  <X className="w-6 h-6 text-[#333] transition-opacity duration-300" />
-                ) : (
-                  <Menu className="w-6 h-6 text-[#333] transition-opacity duration-300" />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
+      {/* Hamburger */}
+      <div className="sticky top-0 z-50">
+        <button
+          onClick={() => setOpen(!open)}
+          className="group size-12 absolute top-5 right-5 md:right-10 z-[60]"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+        >
+          <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 -translate-y-[5px] ${open ? 'rotate-45 -translate-y-1/2' : 'md:group-hover:rotate-12'}`} />
+          <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 translate-y-[5px] ${open ? '-rotate-45 -translate-y-1/2' : 'md:group-hover:-rotate-12'}`} />
+        </button>
+      </div>
 
+      {/* Overlay */}
       <AnimatePresence>
         {open && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/30 z-[9998]"
-              onClick={() => setOpen(false)}
-              aria-hidden="true"
-            ></motion.div>
-            <motion.div 
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              className="fixed top-[72px] left-0 right-0 z-[9999] md:hidden w-full shadow-lg bg-[#fffaf3] px-6 py-4 rounded-b-xl"
-            >
-              <div className="flex flex-col items-start gap-2">
-                {navLinks.map((link) => (
-                  <a key={link.id} href={`#${link.id}`} onClick={(e) => { e.preventDefault(); handleLinkClick(link.id); }}
-                     className={`px-4 py-3 rounded-full font-semibold text-[#333] transition-all duration-300 w-full text-left ${
-                       activeSection === link.id
-                         ? 'text-white bg-gradient-to-br from-[#ff9f45] to-[#d35400] shadow-md'
-                         : 'hover:text-[#d35400] hover:bg-[rgba(211,84,0,0.12)]'
-                     }`}>
-                    {link.title}
-                  </a>
-                ))}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[55] bg-black/70"
+            onClick={() => setOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Slide-in panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            className="fixed top-0 right-0 h-screen w-[500px] max-w-[calc(100vw-3rem)] z-[56] bg-bg-light flex flex-col justify-center py-10 overflow-hidden"
+          >
+            <div className="w-full max-w-[300px] mx-8 sm:mx-auto">
+              <div className="flex gap-10 max-lg:flex-col">
+                {/* Social */}
+                <div className="max-lg:order-2">
+                  <p className="text-muted mb-5 md:mb-8 text-sm uppercase tracking-wider">SOCIAL</p>
+                  <ul className="space-y-3">
+                    {SOCIAL_LINKS.map((link) => (
+                      <li key={link.name}>
+                        <a href={link.url} target="_blank" rel="noreferrer" className="text-lg capitalize hover:text-accent transition-colors">
+                          {link.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Menu */}
+                <div>
+                  <p className="text-muted mb-5 md:mb-8 text-sm uppercase tracking-wider">MENU</p>
+                  <ul className="space-y-3">
+                    {MENU_LINKS.map((link, idx) => (
+                      <li key={link.name}>
+                        <button
+                          onClick={() => scrollTo(link.id)}
+                          className="group text-xl flex items-center gap-3"
+                        >
+                          <span className={`size-3.5 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-[200%] transition-all ${COLORS[idx % COLORS.length]}`} />
+                          {link.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </motion.div>
-          </>
+
+              {/* Get in touch */}
+              <div className="mt-10">
+                <p className="text-muted mb-4 text-sm uppercase tracking-wider">GET IN TOUCH</p>
+                <a href="mailto:prakashseervi1503@gmail.com" className="hover:text-accent transition-colors">
+                  prakashseervi1503@gmail.com
+                </a>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
