@@ -31,4 +31,9 @@
     font-family: var(--font-roboto);
     overflow-x: hidden;
   }
+  @media (min-width: 768px) {
+    * {
+      cursor: none !important;
+    }
+  }
 }

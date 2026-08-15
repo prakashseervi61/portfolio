@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MoveUpRight } from 'lucide-react';
 
 const SOCIAL_LINKS = [
   { name: 'github', url: 'https://github.com/prakashseervi61' },
@@ -96,7 +97,9 @@ const Navbar = () => {
                           onClick={() => scrollTo(link.id)}
                           className="group text-xl flex items-center gap-3"
                         >
-                          <span className={`size-3.5 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-[200%] transition-all ${COLORS[idx % COLORS.length]}`} />
+                          <span className={`size-3.5 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-[200%] transition-all ${COLORS[idx % COLORS.length]}`}>
+                            <MoveUpRight size={8} className="scale-0 group-hover:scale-100 transition-all" />
+                          </span>
                           {link.name}
                         </button>
                       </li>

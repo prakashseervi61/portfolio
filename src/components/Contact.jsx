@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { Mail, Linkedin, Github, Send } from 'lucide-react';
+import Button from './Button';
+import SectionTitle from './SectionTitle';
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -61,10 +63,7 @@ const Contact = () => {
   return (
     <section id="contact" className="py-25 sm:py-32">
       <div className="container max-w-[1148px] mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp(0)} className="flex items-center gap-4 mb-16">
-          <div className="w-2 h-2 bg-accent rounded-full" />
-          <h2 className="text-xl uppercase tracking-wider">Contact</h2>
-        </motion.div>
+        <SectionTitle title="Contact" className="mb-16" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Info side */}
@@ -129,15 +128,14 @@ const Contact = () => {
                   className="w-full px-4 py-3 bg-bg-light border border-border rounded-xl focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all text-fg placeholder:text-muted/50 resize-none"
                 />
               </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              <Button
+                as="button"
                 type="submit"
-                disabled={loading}
-                className="w-full sm:w-auto h-12 px-8 inline-flex justify-center items-center gap-2 font-anton text-lg uppercase tracking-wider bg-accent text-black rounded-md hover:bg-accent/80 transition-colors"
+                loading={loading}
+                className="w-full sm:w-auto"
               >
-                {loading ? 'Sending...' : <>Send Message <Send className="w-4 h-4" /></>}
-              </motion.button>
+                Send Message <Send className="w-4 h-4" />
+              </Button>
               {success && <p className="text-center text-accent font-medium">Message sent successfully!</p>}
               {error && <p className="text-center text-red-500 font-medium">Failed to send. Please try again.</p>}
             </form>

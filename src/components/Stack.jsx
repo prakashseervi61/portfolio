@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SectionTitle from './SectionTitle';
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -18,10 +19,7 @@ const Stack = () => {
   return (
     <section id="stack" className="py-25 sm:py-32">
       <div className="container max-w-[1148px] mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp(0)} className="flex items-center gap-4 mb-16">
-          <div className="w-2 h-2 bg-accent rounded-full" />
-          <h2 className="text-xl uppercase tracking-wider">My Stack</h2>
-        </motion.div>
+        <SectionTitle title="My Stack" className="mb-16" />
 
         <div className="space-y-16">
           {Object.entries(STACK).map(([category, items], catIdx) => (

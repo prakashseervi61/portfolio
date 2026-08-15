@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import ArrowAnimation from './ArrowAnimation';
+import Button from './Button';
 
 const stats = [
   { value: '2+', label: 'Projects' },
@@ -16,6 +18,7 @@ const fadeUp = (delay = 0) => ({
 const Hero = () => {
   return (
     <section id="home" className="relative overflow-hidden min-h-screen flex items-center">
+      <ArrowAnimation />
       <div className="container h-[100svh] min-h-[530px] flex justify-between items-center max-md:flex-col max-md:pb-10 px-4 sm:px-6 lg:px-8 mx-auto max-w-[1148px]">
         {/* Left content */}
         <div className="max-md:grow max-md:flex flex-col justify-center items-start max-w-[544px]">
@@ -32,17 +35,23 @@ const Hero = () => {
             reliable web applications with modern tools.
           </motion.p>
 
-          <motion.a
-            {...fadeUp(0.3)}
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-            className="mt-9 h-12 px-8 inline-flex justify-center items-center gap-2 text-lg uppercase font-anton tracking-wider bg-accent text-black rounded-md hover:bg-accent/80 transition-colors"
-          >
-            Let&apos;s Talk
-          </motion.a>
+          <motion.div {...fadeUp(0.3)}>
+            <Button
+              href="#contact"
+              className="mt-9"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById('contact')
+                  ?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Let&apos;s Talk
+            </Button>
+          </motion.div>
 
           <motion.div {...fadeUp(0.45)} className="flex items-center gap-2 mt-3">
-            <span className="size-3 rounded-full bg-accent" />
+            <span className="size-3 rounded-full bg-white" />
             <span className="text-sm text-muted">Available for internship opportunities</span>
           </motion.div>
         </div>

@@ -9,12 +9,19 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Particles from './components/Particles';
+import Preloader from './components/Preloader';
+import CustomCursor from './components/CustomCursor';
+import ScrollProgress from './components/ScrollProgress';
+import StickyEmail from './components/StickyEmail';
 import { MotionConfig } from 'framer-motion';
 
 function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="relative min-h-screen w-full overflow-x-hidden bg-bg text-fg font-roboto">
+        <Preloader />
+        <CustomCursor />
+        <ScrollProgress />
         <Particles />
         <Navbar />
         <main>
@@ -27,6 +34,7 @@ function App() {
           <Contact />
         </main>
         <Footer />
+        <StickyEmail />
       </div>
     </MotionConfig>
   );
