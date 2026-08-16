@@ -41,6 +41,14 @@ export const MY_STACK = {
             icon: 'https://cdn.worldvectorlogo.com/logos/framer-motion.svg',
         },
         {
+            name: 'GSAP',
+            icon: 'https://cdn.worldvectorlogo.com/logos/gsap-greensock.svg',
+        },
+        {
+            name: 'Lenis',
+            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+        },
+        {
             name: 'Redux',
             icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg',
         },

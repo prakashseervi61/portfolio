@@ -78,7 +78,7 @@ export default function Skills() {
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-md bg-background-light border border-border">
                       <img
                         src={item.icon}
-                        alt={item.name}
+                        alt=""
                         width="26"
                         height="26"
                         className="max-h-6 w-auto"
