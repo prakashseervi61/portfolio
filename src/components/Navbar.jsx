@@ -10,12 +10,11 @@ const SOCIAL_LINKS = [
 ];
 
 const MENU_LINKS = [
-  { name: 'Home', id: 'home' },
-  { name: 'About Me', id: 'about' },
-  { name: 'Stack', id: 'stack' },
-  { name: 'Experience', id: 'experience' },
-  { name: 'Projects', id: 'projects' },
-  { name: 'Education', id: 'education' },
+  { name: 'Home', id: 'banner' },
+  { name: 'About Me', id: 'about-me' },
+  { name: 'Stack', id: 'my-stack' },
+  { name: 'Experience', id: 'my-experience' },
+  { name: 'Projects', id: 'my-projects' },
   { name: 'Contact', id: 'contact' },
 ];
 
@@ -42,6 +41,7 @@ const Navbar = () => {
           onClick={() => setOpen(!open)}
           className="group size-12 absolute top-5 right-5 md:right-10 z-[60]"
           aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
         >
           <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 -translate-y-[5px] ${open ? 'rotate-45 -translate-y-1/2' : 'md:group-hover:rotate-12'}`} />
           <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 translate-y-[5px] ${open ? '-rotate-45 -translate-y-1/2' : 'md:group-hover:-rotate-12'}`} />

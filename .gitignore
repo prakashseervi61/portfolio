@@ -28,3 +28,5 @@ DESIGN.md
 
 # Browser test artifacts
 .playwright-mcp/
+
+src.backup

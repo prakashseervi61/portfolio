@@ -1,42 +1,15 @@
-// ponytail: single-page, all sections render at mount — no lazy/Suspense needed
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Stack from './components/Stack';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Education from './components/Education';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Particles from './components/Particles';
-import Preloader from './components/Preloader';
-import CustomCursor from './components/CustomCursor';
-import ScrollProgress from './components/ScrollProgress';
-import StickyEmail from './components/StickyEmail';
-import { MotionConfig } from 'framer-motion';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './layout/Layout';
+import Home from './pages/Home';
+import ProjectPage from './pages/ProjectPage';
 
 function App() {
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="relative min-h-screen w-full overflow-x-hidden bg-bg text-fg font-roboto">
-        <Preloader />
-        <CustomCursor />
-        <ScrollProgress />
-        <Particles />
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Stack />
-          <Experience />
-          <Projects />
-          <Education />
-          <Contact />
-        </main>
-        <Footer />
-        <StickyEmail />
-      </div>
-    </MotionConfig>
+    <Routes>
+      <Route path="/" element={<Layout><Home /></Layout>} />
+      <Route path="/projects/:slug" element={<Layout><ProjectPage /></Layout>} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
