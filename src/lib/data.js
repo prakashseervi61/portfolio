@@ -13,7 +13,7 @@ export const GENERAL_INFO = {
 
 export const SOCIAL_LINKS = [
     { name: 'github', url: 'https://github.com/prakashseervi61' },
-    { name: 'linkedin', url: 'https://www.linkedin.com/in/prakash-v-446194326/' },
+    { name: 'linkedin', url: 'https://www.linkedin.com/in/prakashv-dev/' },
     { name: 'leetcode', url: 'https://leetcode.com/u/r5rxBOU1qw/' },
     { name: 'Old Version', url: GENERAL_INFO.oldPortfolio },
 ];

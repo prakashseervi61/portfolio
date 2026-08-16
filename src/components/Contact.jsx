@@ -12,7 +12,7 @@ const CONTACT_LINKS = [
   { label: 'GitHub', url: 'https://github.com/prakashseervi61' },
   {
     label: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/prakash-v-446194326/',
+    url: 'https://www.linkedin.com/in/prakashv-dev/',
   },
   { label: 'LeetCode', url: 'https://leetcode.com/u/r5rxBOU1qw/' },
 ];

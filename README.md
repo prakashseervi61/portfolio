@@ -54,6 +54,6 @@ npm run dev
 ## Connect
 
 - GitHub: [prakashseervi61](https://github.com/prakashseervi61)
-- LinkedIn: [Prakash V](https://www.linkedin.com/in/prakash-v-446194326/)
+- LinkedIn: [Prakash V](https://www.linkedin.com/in/prakashv-dev/)
 - LeetCode: [Profile](https://leetcode.com/u/r5rxBOU1qw/)
 - Email: prakashseervi1503@gmail.com

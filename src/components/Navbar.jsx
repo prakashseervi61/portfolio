@@ -4,7 +4,7 @@ import { MoveUpRight } from 'lucide-react';
 
 const SOCIAL_LINKS = [
   { name: 'github', url: 'https://github.com/prakashseervi61' },
-  { name: 'linkedin', url: 'https://www.linkedin.com/in/prakash-v-446194326/' },
+  { name: 'linkedin', url: 'https://www.linkedin.com/in/prakashv-dev/' },
   { name: 'leetcode', url: 'https://leetcode.com/u/r5rxBOU1qw/' },
   { name: 'email', url: 'mailto:prakashseervi1503@gmail.com' },
 ];
