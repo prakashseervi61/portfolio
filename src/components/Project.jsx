@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { cn } from '../lib/utils';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 
@@ -65,6 +64,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
   };
 
   const handleMouseLeave = () => {
+    onMouseEnter(null);
     timelineRef.current?.kill();
     timelineRef.current = null;
   };
@@ -72,7 +72,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className="project-item group leading-none py-5 md:border-b first:!pt-0 last:pb-0 last:border-none md:group-hover/projects:opacity-30 md:hover:!opacity-100 transition-all"
+      className="project-item group leading-none py-5 border-b first:!pt-0 last:pb-0 last:border-none md:group-hover/projects:opacity-30 md:hover:!opacity-100 transition-all"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -82,10 +82,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
           alt={project.title}
           width="300"
           height="200"
-          className={cn(
-            'w-full object-cover mb-6 aspect-[3/2] object-top'
-          )}
-          key={project.slug}
+          className="w-full object-cover mb-6 aspect-[3/2] object-top md:hidden"
           loading="lazy"
         />
       )}

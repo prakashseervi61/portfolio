@@ -63,10 +63,6 @@ export const MY_STACK = {
             icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
         },
         {
-            name: 'Express.js',
-            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
-        },
-        {
             name: 'JPA',
             icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
         },
@@ -79,10 +75,6 @@ export const MY_STACK = {
         {
             name: 'PostgreSQL',
             icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
-        },
-        {
-            name: 'MongoDB',
-            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
         },
     ],
     tools: [
@@ -103,8 +95,8 @@ export const MY_STACK = {
             icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
         },
         {
-            name: 'Postman',
-            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg',
+            name: 'Swagger',
+            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg',
         },
     ],
 };

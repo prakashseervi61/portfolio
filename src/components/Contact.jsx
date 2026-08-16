@@ -15,7 +15,6 @@ const CONTACT_LINKS = [
     url: 'https://www.linkedin.com/in/prakash-v-446194326/',
   },
   { label: 'LeetCode', url: 'https://leetcode.com/u/r5rxBOU1qw/' },
-  { label: 'Email', url: `mailto:${GENERAL_INFO.email}` },
 ];
 
 export default function Contact() {
@@ -39,7 +38,7 @@ export default function Contact() {
   );
 
   return (
-    <section className="py-24" id="contact" ref={containerRef}>
+    <section className="py-24 pb-40" id="contact" ref={containerRef}>
       <div className="container">
         <SectionTitle title="Contact" className="mb-16" />
 
@@ -66,7 +65,7 @@ export default function Contact() {
               href={link.url}
               target={link.url.startsWith('mailto:') ? '_self' : '_blank'}
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 text-lg text-muted-foreground hover:text-fg transition-colors"
+              className="group inline-flex items-center gap-2 text-lg text-white hover:text-accent transition-colors"
             >
               {link.label}
               <MoveUpRight

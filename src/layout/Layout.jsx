@@ -5,7 +5,6 @@ import ScrollProgressIndicator from '../components/ScrollProgress';
 import ParticleBackground from '../components/Particles';
 import CustomCursor from '../components/CustomCursor';
 import Preloader from '../components/Preloader';
-import StickyEmail from '../components/StickyEmail';
 
 import ReactLenis from 'lenis/react';
 
@@ -20,7 +19,6 @@ export default function Layout({ children }) {
         <Preloader />
         <ScrollProgressIndicator />
         <ParticleBackground />
-        <StickyEmail />
       </div>
     </ReactLenis>
   );

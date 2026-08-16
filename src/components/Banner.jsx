@@ -75,7 +75,7 @@ export default function Banner() {
         <div className="md:absolute bottom-[10%] right-[4%] flex md:flex-col gap-4 md:gap-8 text-center md:text-right">
           <div className="slide-up-and-fade">
             <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
-              2+
+              5+
             </h5>
             <p className="text-muted-foreground">
               Projects
@@ -83,7 +83,7 @@ export default function Banner() {
           </div>
           <div className="slide-up-and-fade">
             <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
-              1+
+              3+
             </h5>
             <p className="text-muted-foreground">
               Year of Learning
@@ -91,7 +91,7 @@ export default function Banner() {
           </div>
           <div className="slide-up-and-fade">
             <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
-              5+
+              10+
             </h5>
             <p className="text-muted-foreground">Technologies</p>
           </div>

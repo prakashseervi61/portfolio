@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MoveUpRight } from 'lucide-react';
 
@@ -27,6 +27,22 @@ const COLORS = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('banner');
+
+  useEffect(() => {
+    const observers = [];
+    MENU_LINKS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActive(id); },
+        { threshold: 0.3 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   const scrollTo = (id) => {
     setOpen(false);
@@ -36,17 +52,15 @@ const Navbar = () => {
   return (
     <>
       {/* Hamburger */}
-      <div className="sticky top-0 z-50">
-        <button
-          onClick={() => setOpen(!open)}
-          className="group size-12 absolute top-5 right-5 md:right-10 z-[60]"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-        >
-          <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 -translate-y-[5px] ${open ? 'rotate-45 -translate-y-1/2' : 'md:group-hover:rotate-12'}`} />
-          <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 translate-y-[5px] ${open ? '-rotate-45 -translate-y-1/2' : 'md:group-hover:-rotate-12'}`} />
-        </button>
-      </div>
+      <button
+        onClick={() => setOpen(!open)}
+        className="group size-12 fixed top-5 right-5 md:right-10 z-[70]"
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+      >
+        <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 ${open ? 'rotate-45 md:group-hover:rotate-[30deg] md:group-hover:-translate-y-[5px]' : '-translate-y-[5px] md:group-hover:rotate-12'}`} />
+        <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 ${open ? '-rotate-45 md:group-hover:-rotate-[30deg] md:group-hover:translate-y-[5px]' : 'translate-y-[5px] md:group-hover:-rotate-12'}`} />
+      </button>
 
       {/* Overlay */}
       <AnimatePresence>
@@ -95,10 +109,10 @@ const Navbar = () => {
                       <li key={link.name}>
                         <button
                           onClick={() => scrollTo(link.id)}
-                          className="group text-xl flex items-center gap-3"
+                          className={`group text-xl flex items-center gap-3 transition-colors ${active === link.id ? 'text-accent' : ''}`}
                         >
-                          <span className={`size-3.5 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-[200%] transition-all ${COLORS[idx % COLORS.length]}`}>
-                            <MoveUpRight size={8} className="scale-0 group-hover:scale-100 transition-all" />
+                          <span className={`size-3.5 rounded-full flex items-center justify-center group-hover:scale-[200%] transition-all ${active === link.id ? COLORS[idx % COLORS.length] : 'bg-white/20'}`}>
+                            <MoveUpRight size={8} className={`transition-all ${active === link.id ? 'scale-100' : 'scale-0 group-hover:scale-100'}`} />
                           </span>
                           {link.name}
                         </button>

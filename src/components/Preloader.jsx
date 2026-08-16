@@ -16,7 +16,7 @@ const Preloader = () => {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[60] flex"
+          className="fixed inset-0 z-[80] flex"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
