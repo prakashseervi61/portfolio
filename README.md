@@ -29,20 +29,7 @@
 | Frontend | React, Vite, Tailwind CSS |
 | Animation | GSAP, Framer Motion, Lenis |
 | Routing | React Router DOM |
-| Contact | EmailJS |
 | Icons | Lucide React |
-
----
-
-## Projects Showcased
-
-| Project | Live | Source |
-|---------|------|--------|
-| myFlix | [Live](https://prakashseervi61.github.io/myFlix/) | [GitHub](https://github.com/prakashseervi61/myFlix) |
-| Todo List | [Live](https://prakashseervi61.github.io/Todo-List-Web-App/) | [GitHub](https://github.com/prakashseervi61/Todo-List-Web-App) |
-| CGPA Calculator | — | [GitHub](https://github.com/prakashseervi61/CGPA-CALC) |
-| 3D Solar System | — | [GitHub](https://github.com/prakashseervi61/3D-Solar-System-Website) |
-| QA Assistant | — | [GitHub](https://github.com/prakashseervi61/QA-Assistant) |
 
 ---
 
