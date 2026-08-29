@@ -5,6 +5,15 @@ import { Menu, X } from 'lucide-react';
 const NAVBAR_HEIGHT = 72;
 const HOME_OVERRIDE_THRESHOLD = 120; // As per requirement: scrollY < 120
 
+const navLinks = [
+  { id: 'home', title: 'Home' },
+  { id: 'about', title: 'About' },
+  { id: 'experience', title: 'Experience' },
+  { id: 'projects', title: 'Projects' },
+  { id: 'education', title: 'Education' },
+  { id: 'contact', title: 'Contact' },
+];
+
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [open, setOpen] = useState(false);
@@ -13,15 +22,6 @@ const Navbar = () => {
   const scrollTimeout = useRef(null);
   const observer = useRef(null); // IntersectionObserver
   const sectionElements = useRef(new Map()); // Map to store observed section elements
-
-  const navLinks = [
-    { id: 'home', title: 'Home' },
-    { id: 'about', title: 'About' },
-    { id: 'experience', title: 'Experience' },
-    { id: 'projects', title: 'Projects' },
-    { id: 'education', title: 'Education' },
-    { id: 'contact', title: 'Contact' },
-  ];
 
   // Callback for IntersectionObserver
   const handleIntersection = useCallback((entries) => {
