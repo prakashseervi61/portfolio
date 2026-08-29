@@ -126,11 +126,11 @@ const Contact = () => {
             </p>
             <div className="space-y-4">
               <ContactMethod icon={Mail} title="Email" value="prakashseervi1503@gmail.com" href="mailto:prakashseervi1503@gmail.com" />
-              <ContactMethod icon={Linkedin} title="LinkedIn" value="prakash-v-446194326" href="https://www.linkedin.com/in/prakash-v-446194326/" />
+              <ContactMethod icon={Linkedin} title="LinkedIn" value="prakashv-dev" href="https://www.linkedin.com/in/prakashv-dev" />
               <ContactMethod icon={Github} title="GitHub" value="prakashseervi61" href="https://github.com/prakashseervi61" />
             </div>
             <div className="mt-auto pt-8 flex justify-center gap-4">
-               <SocialIcon icon={Linkedin} href="https://www.linkedin.com/in/prakash-v-446194326/" label="LinkedIn" />
+               <SocialIcon icon={Linkedin} href="https://www.linkedin.com/in/prakashv-dev" label="LinkedIn" />
                <SocialIcon icon={Github} href="https://github.com/prakashseervi61" label="GitHub" />
             </div>
           </motion.div>

@@ -9,7 +9,7 @@ const Hero = () => {
   const isMobile = useMediaQuery('(max-width: 1024px)');
 
   const socialLinks = [
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/prakash-v-446194326/' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/prakashv-dev' },
     { icon: Github, href: 'https://github.com/prakashseervi61' },
     { icon: Code, href: 'https://leetcode.com/u/r5rxBOU1qw/' },
     { icon: Mail, href: 'mailto:prakashseervi1503@gmail.com' },
