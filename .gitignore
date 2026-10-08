@@ -23,10 +23,17 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.env.*
+
+# AI/tooling local config (not for git)
+.claude/
+.opencode/
+
 # Design docs (not for git)
 DESIGN.md
 
 # Browser test artifacts
 .playwright-mcp/
 
+# Local backup of the pre-redesign site
 src.backup
