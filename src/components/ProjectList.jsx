@@ -1,15 +1,16 @@
+import { gsap, useGSAP } from '../lib/gsap';
 import { useRef, useState } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
 import { PROJECTS } from '../lib/data';
 import Project from './Project';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
 export default function ProjectList() {
   const projectsRef = useRef(null);
+  const listRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  // Vertical offset of the preview, kept aligned with the hovered row instead
+  // of sitting at a fixed spot in the corner.
+  const [previewTop, setPreviewTop] = useState(0);
+  const [previewReady, setPreviewReady] = useState(false);
 
   useGSAP(
     () => {
@@ -45,6 +46,35 @@ export default function ProjectList() {
     { scope: projectsRef },
   );
 
+  /*
+   * Vertically centre the preview on the hovered row and clamp it inside the
+   * list so it never spills past the first or last project.
+   */
+  const handleEnter = (slug, element) => {
+    setSelectedProject(slug);
+
+    const list = listRef.current;
+    if (!list || !element) return;
+
+    const preview = list.querySelector('[data-project-preview]');
+    if (!preview) return;
+
+    const previewHeight = preview.offsetHeight;
+    const rowTop = element.offsetTop;
+    const rowHeight = element.offsetHeight;
+
+    const centered = rowTop + rowHeight / 2 - previewHeight / 2;
+    const maxTop = Math.max(0, list.offsetHeight - previewHeight);
+
+    setPreviewTop(Math.min(Math.max(0, centered), maxTop));
+    setPreviewReady(true);
+  };
+
+  const handleLeave = () => {
+    setSelectedProject(null);
+    setPreviewReady(false);
+  };
+
   return (
     <section className="py-24" id="my-projects" ref={projectsRef}>
       <div className="container">
@@ -54,10 +84,18 @@ export default function ProjectList() {
 
         <div
           className="group/projects relative"
-          onMouseLeave={() => setSelectedProject(null)}
+          onMouseLeave={handleLeave}
+          ref={listRef}
         >
-          {/* Stacked image previews — absolute right, all images present, active one visible */}
-          <div className="max-md:hidden absolute right-0 top-0 z-[1] pointer-events-none w-[200px] xl:w-[350px] aspect-[3/2] overflow-hidden">
+          {/* Preview slides to whichever project is hovered; all images stay
+              mounted and only the active one is opaque. */}
+          <div
+            data-project-preview
+            className={`max-md:hidden absolute right-0 z-[1] pointer-events-none w-[200px] xl:w-[350px] aspect-[3/2] overflow-hidden transition-[top,opacity] duration-300 ease-out ${
+              previewReady && selectedProject ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ top: previewTop }}
+          >
             {PROJECTS.filter((project) => project.thumbnail).map((project) => (
               <img
                 key={project.slug}
@@ -66,7 +104,7 @@ export default function ProjectList() {
                 loading="lazy"
                 width="400"
                 height="500"
-                className={`absolute inset-0 transition-all duration-500 w-full h-full object-cover ${
+                className={`absolute inset-0 transition-opacity duration-300 w-full h-full object-cover ${
                   selectedProject === project.slug ? 'opacity-100' : 'opacity-0'
                 }`}
               />
@@ -81,7 +119,7 @@ export default function ProjectList() {
                 index={index}
                 project={project}
                 selectedProject={selectedProject}
-                onMouseEnter={setSelectedProject}
+                onMouseEnter={handleEnter}
               />
             ))}
           </div>

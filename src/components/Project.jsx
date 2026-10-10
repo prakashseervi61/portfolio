@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
+import { gsap } from '../lib/gsap';
 import { useEffect, useRef } from 'react';
 
 const Project = ({ index, project, selectedProject, onMouseEnter }) => {
@@ -8,8 +8,8 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
 
   useEffect(() => () => timelineRef.current?.kill(), []);
 
-  const handleMouseEnter = () => {
-    onMouseEnter(project.slug);
+  const handleMouseEnter = (event) => {
+    onMouseEnter(project.slug, event.currentTarget);
 
     const svg = externalLinkSVGRef.current;
     const arrowLine = svg?.querySelector('.arrow-line');
@@ -65,7 +65,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
   };
 
   const handleMouseLeave = () => {
-    onMouseEnter(null);
+    onMouseEnter(null, null);
     timelineRef.current?.kill();
     timelineRef.current = null;
   };

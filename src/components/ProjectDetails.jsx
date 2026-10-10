@@ -1,15 +1,10 @@
+import { gsap, useGSAP } from '../lib/gsap';
 import parse from 'html-react-parser';
 import ArrowAnimation from './ArrowAnimation';
 import TransitionLink from './TransitionLink';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { useRef } from 'react';
 import { PROJECTS } from '../lib/data';
-
-// Register GSAP plugins
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function ProjectDetails({ project }) {
   const containerRef = useRef(null);

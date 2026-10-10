@@ -1,11 +1,7 @@
+import { gsap, useGSAP } from '../lib/gsap';
 import SectionTitle from './SectionTitle';
 import { MY_STACK } from '../lib/data';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
 import { useRef } from 'react';
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Skills() {
   const containerRef = useRef(null);

@@ -1,13 +1,9 @@
+import { gsap, useGSAP } from '../lib/gsap';
 import ArrowAnimation from './ArrowAnimation';
 import Button from './Button';
 import { GENERAL_INFO } from '../lib/data';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+import { Download } from 'lucide-react';
 import { useRef } from 'react';
-
-// Register GSAP plugins
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Banner() {
   const containerRef = useRef(null);
@@ -54,14 +50,25 @@ export default function Banner() {
             applications — React frontends, Spring Boot and FastAPI backends,
             and applied AI.
           </p>
-          <Button
-            as="link"
-            href={`mailto:${GENERAL_INFO.email}`}
-            variant="primary"
-            className="mt-9 banner-button slide-up-and-fade"
-          >
-            Let&apos;s Talk
-          </Button>
+          <div className="mt-9 flex flex-wrap gap-4">
+            <Button
+              href={`mailto:${GENERAL_INFO.email}`}
+              variant="primary"
+              className="banner-button slide-up-and-fade"
+            >
+              Let&apos;s Talk
+            </Button>
+
+            <Button
+              href={GENERAL_INFO.resume}
+              variant="secondary"
+              download="Prakash-Resume.pdf"
+              className="banner-button slide-up-and-fade"
+            >
+              <Download className="w-5 h-5" aria-hidden="true" />
+              Resume
+            </Button>
+          </div>
 
           <div className="flex items-center gap-2 mt-3">
             <span className="size-3 rounded-full bg-white"></span>

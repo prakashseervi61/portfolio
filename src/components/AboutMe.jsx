@@ -1,10 +1,6 @@
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+import { gsap, useGSAP } from '../lib/gsap';
 import { useRef } from 'react';
 import { CERIFICATIONS, GENERAL_INFO } from '../lib/data';
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function AboutMe() {
   const container = useRef(null);
@@ -70,7 +66,7 @@ export default function AboutMe() {
               Hi, I&apos;m Prakash.
             </p>
             <p className="mt-4 text-muted-foreground slide-up-and-fade">
-              {GENERAL_INFO.location} · {GENERAL_INFO.phone}
+              {GENERAL_INFO.location}
             </p>
           </div>
           <div className="md:col-span-7">

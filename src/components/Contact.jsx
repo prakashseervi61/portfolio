@@ -1,12 +1,8 @@
+import { gsap, useGSAP } from '../lib/gsap';
 import SectionTitle from './SectionTitle';
 import { GENERAL_INFO } from '../lib/data';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
-import { MoveUpRight } from 'lucide-react';
+import { MoveUpRight, Download } from 'lucide-react';
 import { useRef } from 'react';
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const CONTACT_LINKS = [
   { label: 'GitHub', url: 'https://github.com/prakashseervi61' },
@@ -58,7 +54,7 @@ export default function Contact() {
           {GENERAL_INFO.email}
         </a>
 
-        <div className="slide-up flex flex-wrap gap-x-8 gap-y-4">
+        <div className="slide-up flex flex-wrap items-center gap-x-8 gap-y-4">
           {CONTACT_LINKS.map((link) => (
             <a
               key={link.label}
@@ -75,6 +71,19 @@ export default function Contact() {
               />
             </a>
           ))}
+
+          <a
+            href={GENERAL_INFO.resume}
+            download="Prakash-Resume.pdf"
+            className="group inline-flex items-center gap-2 text-lg text-fg hover:text-accent transition-colors"
+          >
+            Resume
+            <Download
+              size={15}
+              className="text-primary transition-transform group-hover:translate-y-0.5"
+              aria-hidden="true"
+            />
+          </a>
         </div>
       </div>
     </section>

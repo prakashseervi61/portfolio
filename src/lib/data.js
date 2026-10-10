@@ -9,11 +9,9 @@ import myflixImg from '../assets/images/projects/myflix.webp';
 const GH = 'https://github.com/prakashseervi61';
 
 export const GENERAL_INFO = {
-  name: 'Prakash',
-  role: 'Software Developer',
   email: 'prakashseervi1503@gmail.com',
-  phone: '+91 78458 65066',
   location: 'Coimbatore, India',
+  resume: '/portfolio/Prakash-Resume.pdf',
   summary:
     'Pre-final year B.Tech Information Technology student (graduating 2028) building production-style projects: React frontends, Spring Boot and FastAPI backends, and a self-hosted RAG system.',
   stats: [
@@ -21,15 +19,7 @@ export const GENERAL_INFO = {
     { value: '400+', label: 'Automated Tests' },
     { value: '200+', label: 'LeetCode Problems' },
   ],
-  oldPortfolio: 'https://prakashseervi61.github.io/portfolio/',
 };
-
-export const SOCIAL_LINKS = [
-  { name: 'github', url: `${GH}` },
-  { name: 'linkedin', url: 'https://www.linkedin.com/in/prakashv-dev/' },
-  { name: 'leetcode', url: 'https://leetcode.com/u/r5rxBOU1qw/' },
-  { name: 'Old Version', url: GENERAL_INFO.oldPortfolio },
-];
 
 const icon = (path) => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${path}`;
 // A few projects have no devicon entry; simple-icons covers them.
