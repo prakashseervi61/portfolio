@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 import { PROJECTS } from '../lib/data';
 import Project from './Project';
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function ProjectList() {
   const projectsRef = useRef(null);
@@ -57,11 +58,11 @@ export default function ProjectList() {
         >
           {/* Stacked image previews — absolute right, all images present, active one visible */}
           <div className="max-md:hidden absolute right-0 top-0 z-[1] pointer-events-none w-[200px] xl:w-[350px] aspect-[3/2] overflow-hidden">
-            {PROJECTS.map((project) => (
+            {PROJECTS.filter((project) => project.thumbnail).map((project) => (
               <img
                 key={project.slug}
                 src={project.thumbnail}
-                alt="Project"
+                alt=""
                 loading="lazy"
                 width="400"
                 height="500"

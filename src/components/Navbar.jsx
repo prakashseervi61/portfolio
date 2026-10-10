@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MoveUpRight } from 'lucide-react';
 
@@ -28,6 +28,56 @@ const COLORS = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('banner');
+  const triggerRef = useRef(null);
+  const panelRef = useRef(null);
+
+  const closeMenu = useCallback(() => {
+    setOpen(false);
+    triggerRef.current?.focus();
+  }, []);
+
+  // Close on Escape and keep Tab focus inside the panel while it is open.
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+        return;
+      }
+      if (e.key !== 'Tab' || !panelRef.current) return;
+
+      const focusables = panelRef.current.querySelectorAll(
+        'a[href], button:not([disabled])'
+      );
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open, closeMenu]);
+
+  // Stop the page behind the menu from scrolling while it is open.
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
 
   useEffect(() => {
     const observers = [];
@@ -53,10 +103,12 @@ const Navbar = () => {
     <>
       {/* Hamburger */}
       <button
-        onClick={() => setOpen(!open)}
+        ref={triggerRef}
+        onClick={() => (open ? closeMenu() : setOpen(true))}
         className="group size-12 fixed top-5 right-5 md:right-10 z-[70]"
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
+        aria-controls="site-menu-panel"
       >
         <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 ${open ? 'rotate-45 md:group-hover:rotate-[30deg] md:group-hover:-translate-y-[5px]' : '-translate-y-[5px] md:group-hover:rotate-12'}`} />
         <span className={`inline-block w-3/5 h-0.5 bg-fg rounded-full absolute left-1/2 -translate-x-1/2 top-1/2 duration-300 ${open ? '-rotate-45 md:group-hover:-rotate-[30deg] md:group-hover:translate-y-[5px]' : 'translate-y-[5px] md:group-hover:-rotate-12'}`} />
@@ -70,7 +122,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[55] bg-black/70"
-            onClick={() => setOpen(false)}
+            onClick={closeMenu}
           />
         )}
       </AnimatePresence>
@@ -79,11 +131,16 @@ const Navbar = () => {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={panelRef}
+            id="site-menu-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 h-screen w-[500px] max-w-[calc(100vw-3rem)] z-[56] bg-bg-light flex flex-col justify-center py-10 overflow-hidden"
+            className="fixed top-0 right-0 h-screen w-[500px] max-w-[calc(100vw-3rem)] z-[56] bg-bg-light flex flex-col justify-center py-10 overflow-y-auto"
           >
             <div className="w-full max-w-[300px] mx-8 sm:mx-auto">
               <div className="flex gap-10 max-lg:flex-col">
@@ -93,7 +150,12 @@ const Navbar = () => {
                   <ul className="space-y-3">
                     {SOCIAL_LINKS.map((link) => (
                       <li key={link.name}>
-                        <a href={link.url} target="_blank" rel="noreferrer" className="text-lg capitalize hover:text-accent transition-colors">
+                        <a
+                          href={link.url}
+                          target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+                          rel="noreferrer"
+                          className="text-lg capitalize hover:text-accent transition-colors"
+                        >
                           {link.name}
                         </a>
                       </li>

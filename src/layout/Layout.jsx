@@ -5,6 +5,7 @@ import ScrollProgressIndicator from '../components/ScrollProgress';
 import ParticleBackground from '../components/Particles';
 import CustomCursor from '../components/CustomCursor';
 import Preloader from '../components/Preloader';
+import ScrollToTop from '../components/ScrollToTop';
 
 import ReactLenis from 'lenis/react';
 
@@ -12,6 +13,7 @@ export default function Layout({ children }) {
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.4 }}>
       <div className="min-h-screen">
+        <ScrollToTop />
         <Navbar />
         <main>{children}</main>
         <Footer />

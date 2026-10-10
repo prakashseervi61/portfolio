@@ -63,9 +63,9 @@ export default function Contact() {
             <a
               key={link.label}
               href={link.url}
-              target={link.url.startsWith('mailto:') ? '_self' : '_blank'}
+              target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 text-lg text-white hover:text-accent transition-colors"
+              className="group inline-flex items-center gap-2 text-lg text-fg hover:text-accent transition-colors"
             >
               {link.label}
               <MoveUpRight

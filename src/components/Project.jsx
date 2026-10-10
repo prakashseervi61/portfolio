@@ -11,9 +11,10 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
   const handleMouseEnter = () => {
     onMouseEnter(project.slug);
 
-    const arrowLine = externalLinkSVGRef.current?.querySelector('#arrow-line');
-    const arrowCurb = externalLinkSVGRef.current?.querySelector('#arrow-curb');
-    const box = externalLinkSVGRef.current?.querySelector('#box');
+    const svg = externalLinkSVGRef.current;
+    const arrowLine = svg?.querySelector('.arrow-line');
+    const arrowCurb = svg?.querySelector('.arrow-curb');
+    const box = svg?.querySelector('.box');
 
     timelineRef.current?.kill();
 
@@ -76,7 +77,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {selectedProject === null && (
+      {selectedProject === null && project.thumbnail && (
         <img
           src={project.thumbnail}
           alt={project.title}
@@ -91,8 +92,20 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
           _{(index + 1).toString().padStart(2, '0')}.
         </div>
         <div className="">
-          <h4 className="text-4xl sm:text-6xl flex gap-4 font-anton transition-all duration-700 bg-gradient-to-r from-primary to-foreground from-[50%] to-[50%] bg-[length:200%] bg-right bg-clip-text text-transparent group-hover:bg-left">
+          <h3 className="text-4xl sm:text-6xl flex gap-4 font-anton transition-all duration-700 bg-gradient-to-r from-primary to-foreground from-[50%] to-[50%] bg-[length:200%] bg-right bg-clip-text text-transparent group-hover:bg-left">
             {project.title}
+            {project.categories?.length > 0 && (
+              <span className="hidden lg:flex flex-wrap gap-2 self-center">
+                {project.categories.map((category) => (
+                  <span
+                    key={category}
+                    className="font-sans text-xs font-normal tracking-wide text-muted-foreground border border-border rounded-full px-3 py-1 bg-background-light"
+                  >
+                    {category}
+                  </span>
+                ))}
+              </span>
+            )}
             <span className="text-foreground opacity-0 group-hover:opacity-100 transition-all">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,16 +118,18 @@ const Project = ({ index, project, selectedProject, onMouseEnter }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 ref={externalLinkSVGRef}
+                aria-hidden="true"
+                focusable="false"
               >
                 <path
-                  id="box"
+                  className="box"
                   d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
                 ></path>
-                <path id="arrow-line" d="M10 14 21 3"></path>
-                <path id="arrow-curb" d="M15 3h6v6"></path>
+                <path className="arrow-line" d="M10 14 21 3"></path>
+                <path className="arrow-curb" d="M15 3h6v6"></path>
               </svg>
             </span>
-          </h4>
+          </h3>
           <div className="mt-2 flex flex-wrap gap-3 text-muted-foreground text-xs">
             {project.techStack
               .slice(0, 3)

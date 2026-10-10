@@ -38,22 +38,27 @@ export default function ProjectDetails({ project }) {
   // blur info div and make it smaller on scroll
   useGSAP(
     () => {
-      if (window.innerWidth < 992) return;
+      // matchMedia (instead of a one-off innerWidth check) so the pinned
+      // effect is created/destroyed correctly when the viewport is resized.
+      const mm = gsap.matchMedia();
 
-      gsap.to('#info', {
-        filter: 'blur(3px)',
-        autoAlpha: 0,
-        scale: 0.9,
-        // position: 'sticky',
-        scrollTrigger: {
-          trigger: '#info',
-          start: 'bottom bottom',
-          end: 'bottom top',
-          pin: true,
-          pinSpacing: false,
-          scrub: 0.5,
-        },
+      mm.add('(min-width: 992px)', () => {
+        gsap.to('#info', {
+          filter: 'blur(3px)',
+          autoAlpha: 0,
+          scale: 0.9,
+          scrollTrigger: {
+            trigger: '#info',
+            start: 'bottom bottom',
+            end: 'bottom top',
+            pin: true,
+            pinSpacing: false,
+            scrub: 0.5,
+          },
+        });
       });
+
+      return () => mm.revert();
     },
     { scope: containerRef },
   );
@@ -179,9 +184,11 @@ export default function ProjectDetails({ project }) {
           className="fade-in-later relative flex flex-col gap-2 max-w-[800px] mx-auto"
           id="images"
         >
-          {project.images.map((image) => (
+          {project.images.map((image, i) => (
             <div
               key={image}
+              role="img"
+              aria-label={`${project.title} screenshot ${i + 1} of ${project.images.length}`}
               className="group relative w-full aspect-[750/400] bg-background-light"
               style={{
                 backgroundImage: `url(${image})`,

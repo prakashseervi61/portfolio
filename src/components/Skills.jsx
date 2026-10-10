@@ -56,7 +56,7 @@ export default function Skills() {
   );
 
   return (
-    <section id="my-stack" ref={containerRef}>
+    <section className="py-24" id="my-stack" ref={containerRef}>
       <div className="container">
         <SectionTitle title="My Stack" />
 
@@ -84,9 +84,7 @@ export default function Skills() {
                         className="max-h-6 w-auto"
                       />
                     </div>
-                    <span className="text-2xl capitalize">
-                      {item.name}
-                    </span>
+                    <span className="text-2xl">{item.name}</span>
                   </div>
                 ))}
               </div>

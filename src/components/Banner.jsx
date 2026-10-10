@@ -4,11 +4,10 @@ import { GENERAL_INFO } from '../lib/data';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import React from 'react';
 import { useRef } from 'react';
 
 // Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Banner() {
   const containerRef = useRef(null);
@@ -43,7 +42,7 @@ export default function Banner() {
       >
         <div className="max-md:grow max-md:flex flex-col justify-center items-start max-w-[544px]">
           <h1 className="banner-title slide-up-and-fade leading-[.95] text-6xl sm:text-[80px] font-anton">
-            <span className="text-primary">FRONTEND</span>
+            <span className="text-primary">SOFTWARE</span>
             <br /> <span className="ml-4">DEVELOPER</span>
           </h1>
           <p className="banner-description slide-up-and-fade mt-6 text-lg text-muted-foreground">
@@ -51,9 +50,9 @@ export default function Banner() {
             <span className="font-medium text-foreground">
               Prakash
             </span>
-            . A passionate frontend developer focused on building
-            clean, responsive, and reliable web applications with
-            modern tools.
+            . A pre-final year B.Tech student building clean, reliable web
+            applications — React frontends, Spring Boot and FastAPI backends,
+            and applied AI.
           </p>
           <Button
             as="link"
@@ -73,28 +72,14 @@ export default function Banner() {
         </div>
 
         <div className="md:absolute bottom-[10%] right-[4%] flex md:flex-col gap-4 md:gap-8 text-center md:text-right">
-          <div className="slide-up-and-fade">
-            <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
-              5+
-            </h5>
-            <p className="text-muted-foreground">
-              Projects
-            </p>
-          </div>
-          <div className="slide-up-and-fade">
-            <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
-              3+
-            </h5>
-            <p className="text-muted-foreground">
-              Year of Learning
-            </p>
-          </div>
-          <div className="slide-up-and-fade">
-            <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
-              10+
-            </h5>
-            <p className="text-muted-foreground">Technologies</p>
-          </div>
+          {GENERAL_INFO.stats.map((stat) => (
+            <div className="slide-up-and-fade" key={stat.label}>
+              <h5 className="text-3xl sm:text-4xl font-anton text-primary mb-1.5">
+                {stat.value}
+              </h5>
+              <p className="text-muted-foreground">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
