@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prakash | Software Developer</title>
+    <script>
+      /*
+        GitHub Pages has no SPA fallback: a shared deep link such as
+        /portfolio/projects/taskflow is served as this 404 page and never
+        reaches the React app. Save the requested path, then bounce to the app
+        root. The app reads this value on boot and restores the route, so the
+        shared URL keeps working.
+      */
+      (function () {
+        var base = '/portfolio/';
+        var target = location.pathname + location.search + location.hash;
+
+        // Ignore the 404 page itself, otherwise we would loop forever.
+        if (location.pathname !== '/404.html' && location.pathname.indexOf(base) === 0) {
+          try {
+            sessionStorage.setItem('spa-redirect', target);
+          } catch (e) {
+            /* private mode / storage disabled - fall through to the home page */
+          }
+        }
+
+        location.replace(base);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
