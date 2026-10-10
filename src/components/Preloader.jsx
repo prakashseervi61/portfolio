@@ -36,19 +36,34 @@ const Preloader = () => {
             ))}
           </div>
 
-          <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex text-[20vw] lg:text-[200px] font-anton leading-none overflow-hidden">
-            {NAME.split('').map((ch, i) => (
+          {/* The name rises together with the panels; overflow-hidden clips it
+              as it exits, so it looks carried off the top of the screen. */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <p className="flex text-[20vw] lg:text-[200px] font-anton leading-none overflow-hidden">
               <motion.span
-                key={i}
-                className="inline-block"
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ delay: i * 0.05, duration: 0.25 }}
+                className="inline-flex"
+                initial={{ y: '0%' }}
+                animate={{ y: '-120%' }}
+                transition={{
+                  delay: 1.1,
+                  duration: 0.5,
+                  ease: 'easeInOut',
+                }}
               >
-                {ch}
+                {NAME.split('').map((ch, i) => (
+                  <motion.span
+                    key={i}
+                    className="inline-block"
+                    initial={{ y: '100%' }}
+                    animate={{ y: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.25 }}
+                  >
+                    {ch}
+                  </motion.span>
+                ))}
               </motion.span>
-            ))}
-          </p>
+            </p>
+          </div>
 
         </motion.div>
       )}
