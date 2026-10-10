@@ -10,7 +10,6 @@ export default function ProjectList() {
   // Vertical offset of the preview, kept aligned with the hovered row instead
   // of sitting at a fixed spot in the corner.
   const [previewTop, setPreviewTop] = useState(0);
-  const [previewReady, setPreviewReady] = useState(false);
 
   useGSAP(
     () => {
@@ -67,12 +66,10 @@ export default function ProjectList() {
     const maxTop = Math.max(0, list.offsetHeight - previewHeight);
 
     setPreviewTop(Math.min(Math.max(0, centered), maxTop));
-    setPreviewReady(true);
   };
 
   const handleLeave = () => {
     setSelectedProject(null);
-    setPreviewReady(false);
   };
 
   return (
@@ -92,7 +89,7 @@ export default function ProjectList() {
           <div
             data-project-preview
             className={`max-md:hidden absolute right-0 z-[1] pointer-events-none w-[200px] xl:w-[350px] aspect-[3/2] overflow-hidden transition-[top,opacity] duration-300 ease-out ${
-              previewReady && selectedProject ? 'opacity-100' : 'opacity-0'
+              selectedProject ? 'opacity-100' : 'opacity-0'
             }`}
             style={{ top: previewTop }}
           >

@@ -1,9 +1,23 @@
 import { gsap, useGSAP } from '../lib/gsap';
 import ArrowAnimation from './ArrowAnimation';
-import Button from './Button';
 import { GENERAL_INFO } from '../lib/data';
 import { Download } from 'lucide-react';
 import { useRef } from 'react';
+
+// Inline sweep button: a span slides up from below on hover. The sweep colour
+// differs per variant because a solid white ellipse over light text would make
+// the label invisible on the outline button.
+const BTN_BASE =
+  'group relative overflow-hidden h-12 px-8 inline-flex justify-center items-center gap-2 text-lg uppercase font-anton tracking-widest transition-colors banner-button slide-up-and-fade';
+const BTN_VARIANTS = {
+  primary: 'bg-accent text-black hover:bg-accent/90',
+  secondary:
+    'bg-transparent text-fg border border-border hover:bg-bg-light hover:border-accent',
+};
+const BTN_SWEEP = {
+  primary: 'bg-white',
+  secondary: 'bg-accent/15',
+};
 
 export default function Banner() {
   const containerRef = useRef(null);
@@ -51,23 +65,31 @@ export default function Banner() {
             and applied AI.
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
-            <Button
+            <a
               href={`mailto:${GENERAL_INFO.email}`}
-              variant="primary"
-              className="banner-button slide-up-and-fade"
+              className={`${BTN_BASE} ${BTN_VARIANTS.primary}`}
             >
-              Let&apos;s Talk
-            </Button>
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute top-[200%] left-0 right-0 h-full rounded-[50%] group-hover:top-0 transition-all duration-500 scale-150 ${BTN_SWEEP.primary}`}
+              />
+              <span className="relative z-10">Let&apos;s Talk</span>
+            </a>
 
-            <Button
+            <a
               href={GENERAL_INFO.resume}
-              variant="secondary"
               download="Prakash-Resume.pdf"
-              className="banner-button slide-up-and-fade"
+              className={`${BTN_BASE} ${BTN_VARIANTS.secondary}`}
             >
-              <Download className="w-5 h-5" aria-hidden="true" />
-              Resume
-            </Button>
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute top-[200%] left-0 right-0 h-full rounded-[50%] group-hover:top-0 transition-all duration-500 scale-150 ${BTN_SWEEP.secondary}`}
+              />
+              <span className="relative z-10 flex items-center gap-2">
+                <Download className="w-5 h-5" aria-hidden="true" />
+                Resume
+              </span>
+            </a>
           </div>
 
           <div className="flex items-center gap-2 mt-3">
