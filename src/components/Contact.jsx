@@ -1,72 +1,69 @@
-import { gsap, useGSAP } from '../lib/gsap';
 import SectionTitle from './SectionTitle';
 import { GENERAL_INFO } from '../lib/data';
-import { MoveUpRight, Download } from 'lucide-react';
-import { useRef } from 'react';
+import { MoveUpRight, Download, Copy, Check } from 'lucide-react';
+import { useState } from 'react';
 
 const CONTACT_LINKS = [
   { label: 'GitHub', url: 'https://github.com/prakashseervi61' },
-  {
-    label: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/prakashv-dev/',
-  },
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/prakashv-dev/' },
   { label: 'LeetCode', url: 'https://leetcode.com/u/r5rxBOU1qw/' },
 ];
 
 export default function Contact() {
-  const containerRef = useRef(null);
+  const [copied, setCopied] = useState(false);
 
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 60%',
-          end: 'bottom 50%',
-          toggleActions: 'restart none none reverse',
-          scrub: 1,
-        },
-      });
-
-      tl.from('.slide-up', { y: 50, opacity: 0, stagger: 0.15 });
-    },
-    { scope: containerRef },
-  );
+  const handleCopyEmail = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(GENERAL_INFO.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
-    <section className="py-24 pb-40" id="contact" ref={containerRef}>
+    <section className="py-16 pb-24" id="contact">
       <div className="container">
         <SectionTitle title="Contact" className="mb-16" />
 
-        <h2 className="slide-up text-4xl md:text-6xl font-thin leading-snug max-w-[700px]">
+        <h2 className="text-4xl md:text-6xl font-anton leading-snug max-w-[700px] uppercase tracking-wider">
           Let&apos;s build something together.
         </h2>
 
-        <p className="slide-up mt-4 text-lg text-muted-foreground max-w-[500px]">
+        <p className="mt-4 text-lg text-muted-foreground max-w-[500px]">
           I&apos;m currently open to internship opportunities and
           collaborations. Feel free to reach out!
         </p>
 
-        <a
-          href={`mailto:${GENERAL_INFO.email}`}
-          className="slide-up inline-block mt-10 mb-14 font-anton leading-none text-3xl sm:text-5xl md:text-6xl break-all hover:text-accent transition-colors"
+        <button
+          onClick={handleCopyEmail}
+          className="inline-flex items-center gap-2 mt-10 mb-14 font-anton leading-none text-3xl sm:text-5xl md:text-6xl break-all hover:text-accent transition-colors group"
         >
           {GENERAL_INFO.email}
-        </a>
+          {copied ? (
+            <Check size={6} className="text-accent" />
+          ) : (
+            <Copy size={6} className="text-muted-foreground group-hover:text-accent transition-colors" />
+          )}
+        </button>
 
-        <div className="slide-up flex flex-wrap items-center gap-x-8 gap-y-4">
+        {copied && (
+          <div className="mt-2 text-xs text-accent animate-pulse">
+            Copied!
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
           {CONTACT_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 text-lg text-fg hover:text-accent transition-colors"
+              className="group inline-flex items-center gap-2 text-lg text-white hover:text-accent transition-colors"
             >
               {link.label}
               <MoveUpRight
                 size={15}
-                className="text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 aria-hidden="true"
               />
             </a>
@@ -75,7 +72,7 @@ export default function Contact() {
           <a
             href={GENERAL_INFO.resume}
             download="Prakash-Resume.pdf"
-            className="group inline-flex items-center gap-2 text-lg text-fg hover:text-accent transition-colors"
+            className="group inline-flex items-center gap-2 text-lg text-white hover:text-accent transition-colors"
           >
             Resume
             <Download

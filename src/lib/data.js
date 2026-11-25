@@ -10,8 +10,14 @@ const GH = 'https://github.com/prakashseervi61';
 
 export const GENERAL_INFO = {
   email: 'prakashseervi1503@gmail.com',
+  github: 'https://github.com/prakashseervi61',
+  linkedin: 'https://www.linkedin.com/in/prakashv-dev/',
   location: 'Coimbatore, India',
   resume: '/portfolio/Prakash-Resume.pdf',
+  headline: 'Full-Stack Developer',
+  tagline:
+    'I build web apps end to end — React frontends, Spring Boot & FastAPI backends, and applied AI.',
+  education: 'B.Tech IT · Sri Krishna College of Technology · Class of 2028',
   summary:
     'Pre-final year B.Tech Information Technology student (graduating 2028) building production-style projects: React frontends, Spring Boot and FastAPI backends, and a self-hosted RAG system.',
   stats: [
@@ -82,19 +88,18 @@ export const PROJECTS = [
     sourceCode: `${GH}/QA-Assistant`,
     year: 'Jun 2026 – Sep 2026',
     categories: ['AI/ML', 'Backend'],
-    description: `
-      A privacy-first, self-hosted Retrieval-Augmented Generation application that answers questions over your own
-      documents. Upload <strong>PDF, DOCX or TXT</strong> files and ask questions in natural language — every answer is
-      grounded in your documents and shipped with <strong>per-claim source citations</strong>, confidence scores and
-      streamed responses.
+    problem: 'Most RAG chat tools hallucinate — they invent answers or force you to dig through sources to verify every claim.',
+    solution: `
+      Self-hosted RAG document Q&A where every answer ships with per-claim source citations and confidence scores.
       <ul>
-        <li>🔒 Fully local storage — embeddings and history never leave your machine</li>
+        <li>🔒 Fully local — embeddings and history never leave your machine</li>
         <li>📎 Referenced-sources panel with a confidence score per citation</li>
         <li>🧠 Semantic chunking, BGE cross-encoder reranking and local embeddings</li>
         <li>🛡️ PII and prompt-injection guardrails</li>
         <li>🧪 325 pytest tests with a RAGAS evaluation gate in CI</li>
       </ul>
     `,
+    challenge: `Keeping answers grounded in source documents instead of hallucinating — solved with per-chunk citation tracking and a confidence score that drops when source overlap is low.`,
     role: `
       Solo Developer <br/>
       <ul>
@@ -113,16 +118,16 @@ export const PROJECTS = [
     sourceCode: `${GH}/TaskFlow`,
     year: 'Jul 2026 – Sep 2026',
     categories: ['Backend', 'Full Stack'],
-    description: `
-      An asynchronous background-job processing platform. A REST API enqueues jobs, Redis holds them, and a separate
-      headless worker executes them — with <strong>exponential-backoff retries</strong> and a
-      <strong>dead-letter queue</strong> for inspecting failed jobs.
+    problem: 'Background jobs run twice or vanish when workers crash — there is no exactly-once execution guarantee.',
+    solution: `
+      Background job processing platform — REST API enqueues jobs, Redis holds them, headless workers execute with exponential-backoff retries and a dead-letter queue.
       <ul>
         <li>♻️ Exactly-once execution via atomic conditional UPDATE claims</li>
         <li>📊 Live dashboard for pending, running, completed, failed and retrying jobs</li>
         <li>🧪 76 JUnit tests, cursor pagination and Flyway migrations</li>
       </ul>
     `,
+    challenge: `Preventing duplicate job execution across worker replicas — solved with atomic conditional UPDATE claims so each job runs exactly once even under concurrency.`,
     role: `
       Solo Developer <br/>
       <ul>
@@ -141,16 +146,16 @@ export const PROJECTS = [
     sourceCode: `${GH}/Object-Detection`,
     year: 'Jan 2026 – Feb 2026',
     categories: ['AI/ML', 'Frontend'],
-    description: `
-      An on-device object detection platform that runs entirely in the browser. Inference is
-      <strong>hardware-accelerated through WebGL</strong>, so images are processed locally and
-      <strong>never uploaded</strong> — total data integrity with zero server cost.
+    problem: 'Cloud object detection uploads your images to third-party servers — a privacy risk with ongoing server cost.',
+    solution: `
+      On-device object detection that runs entirely in the browser — images are processed locally via WebGL and never uploaded.
       <ul>
         <li>🎯 Detects 80+ object classes with real-time bounding boxes</li>
         <li>⚡ Sub-100ms inference on-device via ONNX Runtime Web</li>
         <li>📱 Installable progressive web app with static-frame and live-camera modes</li>
       </ul>
     `,
+    challenge: `Running YOLO object detection entirely client-side without uploading images — solved with ONNX Runtime Web and WebGL hardware acceleration for sub-100ms inference.`,
     role: `
       Solo Developer <br/>
       <ul>
@@ -169,15 +174,16 @@ export const PROJECTS = [
     sourceCode: `${GH}/Fleet-Management-and-GPS-Vehicle-Tracking-System`,
     year: 'Apr 2026 – Jun 2026',
     categories: ['Backend', 'Full Stack'],
-    description: `
-      A full-stack fleet management system with <strong>live GPS vehicle tracking</strong> on interactive maps,
-      geofence entry/exit alerts and telemetry events for speeding, idling and harsh braking.
+    problem: 'Fleet operators lack unified visibility — GPS tracking, geofence alerts, and role-based access are scattered across disconnected tools.',
+    solution: `
+      Full-stack fleet system with live GPS vehicle tracking on interactive maps, geofence entry/exit alerts and telemetry for speeding, idling and harsh braking.
       <ul>
         <li>🗺️ Live map tracking with Leaflet and geofence alerts</li>
         <li>🔐 Stateless JWT authentication and role-based access control across 6 roles</li>
         <li>🧾 Automated trip-compliance checks across documents and maintenance</li>
       </ul>
     `,
+    challenge: `Securing 11 REST controllers with stateless JWT and role-based access across 6 user roles — solved with Spring Security method-level annotations and a custom role hierarchy.`,
     role: `
       Solo Developer <br/>
       <ul>
@@ -197,15 +203,16 @@ export const PROJECTS = [
     liveUrl: `${GH}/CGPA-CALC`,
     year: 'Jul 2026',
     categories: ['Frontend'],
-    description: `
-      A CGPA calculator built for engineering students — real-time SGPA/CGPA tracking, grade trends and
-      multi-profile support. <strong>No backend</strong>: every profile and semester stays in the browser.
+    problem: 'Students need backend accounts to track grades — their academic data lives on someone else\'s server.',
+    solution: `
+      CGPA calculator for engineering students — real-time SGPA/CGPA tracking, grade trends and multi-profile support. No backend: every profile stays in the browser.
       <ul>
         <li>📊 Live grade distribution and target-progress visualisation</li>
         <li>📈 Semester-over-semester trend charts with Recharts</li>
         <li>🔐 Local profile sign-in with per-student data separation</li>
       </ul>
     `,
+    challenge: `Keeping all student data isolated in the browser without a backend — solved with per-profile localStorage keys and a grade scale editor that recalculates SGPA/CGPA in real time.`,
     role: `
       Solo Developer <br/>
       <ul>
@@ -224,14 +231,15 @@ export const PROJECTS = [
     sourceCode: `${GH}/splitup`,
     year: '2026',
     categories: ['Frontend', 'Full Stack'],
-    description: `
-      A group-expense splitting app. Split shared expenses with friends and settle up in one tap —
-      <strong>no spreadsheets, no chasing anyone</strong> — with UPI deep-links for instant payments.
+    problem: 'Splitting expenses means chasing friends, manual spreadsheets, and copy-pasting payment details between apps.',
+    solution: `
+      Group expense splitting app — settle shared expenses in one tap with UPI deep-links for instant payments. No spreadsheets, no chasing anyone.
       <ul>
         <li>💸 Split group expenses and settle balances instantly via UPI</li>
         <li>📱 Responsive, installable-feeling UI built with Next.js and TypeScript</li>
       </ul>
     `,
+    challenge: `Generating UPI deep-links that pre-fill payee, amount and note so users can settle expenses in one tap — solved with a UPI URL builder that encodes payment details into a clickable link.`,
     role: `
       Solo Developer <br/>
       <ul>
@@ -250,15 +258,16 @@ export const PROJECTS = [
     liveUrl: 'https://prakashseervi61.github.io/myFlix/',
     year: 'Jun 2026',
     categories: ['Frontend'],
-    description: `
-      A movie discovery web app backed by the live OMDB API. Browse trending films, search thousands of titles and
-      build a watchlist — with smooth SPA navigation and instant results.
+    problem: 'Movie search feels sluggish — API calls fire on every keystroke, hammering the server and lagging the UI.',
+    solution: `
+      Movie discovery app over the live OMDB API with debounced search, watchlist and SPA navigation.
       <ul>
         <li>🔍 Debounced live search across the OMDB catalogue</li>
         <li>🎬 Movie detail pages with ratings, plots, cast and trailers</li>
         <li>📱 Responsive streaming-style interface built with React</li>
       </ul>
     `,
+    challenge: `Keeping search responsive while querying the OMDB API on every keystroke — solved with a debounced search hook that waits 300ms after the user stops typing before firing the API request.`,
     role: `
       Solo Developer <br/>
       <ul>
@@ -271,6 +280,35 @@ export const PROJECTS = [
     thumbnail: myflixImg,
     images: [myflixImg],
   },
+  {
+    title: 'logcli',
+    slug: 'logcli',
+    sourceCode: `${GH}/logcli`,
+    year: '2026',
+    categories: ['Backend', 'CLI'],
+    problem: '`grep` doesn\'t understand structured logs — JSON, logfmt, and OpenTelemetry OTLP each need a different parser.',
+    solution: `
+      Fast, local-first log viewer and processor for JSON, logfmt, plain text and OpenTelemetry OTLP logs.
+      <ul>
+        <li>🔍 Boolean query language with and/or/not, parentheses and like operators</li>
+        <li>📋 Interactive TUI with declarative config and PII redaction</li>
+        <li>🚨 Alert rules and compressed log support</li>
+        <li>🧪 Native database index with full test coverage</li>
+      </ul>
+    `,
+    challenge: `Parsing multiple log formats (JSON, logfmt, plain text, OTLP) with a single query language — solved with a format-agnostic parser pipeline and boolean expression engine.`,
+    role: `
+      Solo Developer <br/>
+      <ul>
+        <li>✅ Built the log parsing engine supporting JSON, logfmt, plain text and OTLP</li>
+        <li>🎛️ Implemented boolean query language and interactive TUI</li>
+        <li>📦 Published as native binary with no Docker required at runtime</li>
+      </ul>
+    `,
+    techStack: ['CLI', 'TUI', 'OpenTelemetry', 'Log Processing'],
+    thumbnail: null,
+    images: [],
+  },
 ];
 
 export const MY_EXPERIENCE = [
@@ -280,6 +318,11 @@ export const MY_EXPERIENCE = [
     duration: 'Sep 2024 – Present',
     details:
       'Delivered production-style applications across React, Spring Boot and FastAPI, backed by automated test suites and code-review checklists on GitHub Actions CI.',
+    bullets: [
+      'Architected 8+ full-stack and AI applications spanning RAG, edge ML, job queues and fleet tracking',
+      'Maintained 400+ automated unit/integration tests across pytest, JUnit and Vitest, gated on GitHub Actions CI',
+      'Shipped solo end to end — database schema, backend APIs, React frontend and deployment',
+    ],
   },
   {
     title: 'B.Tech, Information Technology',
@@ -290,7 +333,7 @@ export const MY_EXPERIENCE = [
   },
 ];
 
-export const CERIFICATIONS = [
+export const CERTIFICATIONS = [
   'freeCodeCamp — Responsive Web Design Certification',
   'LeetCode — 200+ problems solved in data structures and algorithms',
 ];

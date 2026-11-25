@@ -58,17 +58,6 @@
     }
   }
 
-  /*
-   * Hide the native cursor only where a real mouse is actually used.
-   * Gating on (hover: hover) and (pointer: fine) keeps the cursor visible on
-   * touch-capable laptops and tablets, where the custom cursor never renders.
-   */
-  @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    * {
-      cursor: none !important;
-    }
-  }
-
   /* Respect users who ask for less motion (WCAG 2.3.3). */
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -83,4 +72,12 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

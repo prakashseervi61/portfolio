@@ -9,7 +9,7 @@ const SectionTitle = ({ title, className = 'mb-10' }) => {
         className="animate-spin [animation-duration:7s] text-accent"
         aria-hidden="true"
       />
-      <h2 className="text-xl uppercase leading-none">{title}</h2>
+      <h2 className="text-2xl md:text-4xl font-anton leading-none uppercase tracking-wider">{title}</h2>
     </div>
   );
 };

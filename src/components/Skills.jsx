@@ -1,58 +1,9 @@
-import { gsap, useGSAP } from '../lib/gsap';
 import SectionTitle from './SectionTitle';
 import { MY_STACK } from '../lib/data';
-import { useRef } from 'react';
 
 export default function Skills() {
-  const containerRef = useRef(null);
-
-  useGSAP(
-    () => {
-      const slideUpEl =
-        containerRef.current?.querySelectorAll('.slide-up');
-
-      if (!slideUpEl?.length) return;
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 80%',
-          end: 'bottom 80%',
-          scrub: 0.5,
-        },
-      });
-
-      tl.from('.slide-up', {
-        opacity: 0,
-        y: 40,
-        ease: 'none',
-        stagger: 0.4,
-      });
-    },
-    { scope: containerRef },
-  );
-
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'bottom 50%',
-          end: 'bottom 10%',
-          scrub: 1,
-        },
-      });
-
-      tl.to(containerRef.current, {
-        y: -150,
-        opacity: 0,
-      });
-    },
-    { scope: containerRef },
-  );
-
   return (
-    <section className="py-24" id="my-stack" ref={containerRef}>
+    <section className="py-16" id="my-stack">
       <div className="container">
         <SectionTitle title="My Stack" />
 
@@ -60,17 +11,14 @@ export default function Skills() {
           {Object.entries(MY_STACK).map(([key, value]) => (
             <div className="grid sm:grid-cols-12" key={key}>
               <div className="sm:col-span-5">
-                <p className="slide-up text-5xl font-anton leading-none text-muted-foreground uppercase">
+                <p className="text-5xl font-anton leading-none text-muted-foreground uppercase">
                   {key}
                 </p>
               </div>
 
               <div className="sm:col-span-7 flex gap-x-11 gap-y-9 flex-wrap">
                 {value.map((item) => (
-                  <div
-                    className="slide-up flex gap-3.5 items-center leading-none"
-                    key={item.name}
-                  >
+                  <div className="flex gap-3.5 items-center leading-none" key={item.name}>
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-md bg-background-light border border-border">
                       <img
                         src={item.icon}
