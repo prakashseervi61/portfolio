@@ -11,7 +11,7 @@ export default function Skills() {
           {Object.entries(MY_STACK).map(([key, value]) => (
             <div className="grid sm:grid-cols-12" key={key}>
               <div className="sm:col-span-5">
-                <p className="text-5xl font-anton leading-none text-muted-foreground uppercase">
+                <p className="text-5xl font-anton leading-none text-muted-foreground uppercase mb-4">
                   {key}
                 </p>
               </div>

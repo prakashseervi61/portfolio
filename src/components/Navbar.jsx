@@ -50,7 +50,25 @@ export default function Navbar() {
           >
             <div className="w-full max-w-[300px] mx-8 sm:mx-auto py-10">
               <div className="flex gap-10 max-lg:flex-col">
-                <div className="max-lg:order-2">
+                <div>
+                  <p className="text-muted mb-5 md:mb-8 text-sm uppercase tracking-wider">MENU</p>
+                  <ul className="space-y-3">
+                    {MENU_LINKS.map((link, idx) => (
+                      <li key={link.name}>
+                        <button
+                          onClick={() => {
+                            setOpen(false);
+                            document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="group text-xl flex items-center gap-3 transition-colors"
+                        >
+                          {link.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
                   <p className="text-muted mb-5 md:mb-8 text-sm uppercase tracking-wider">SOCIAL</p>
                   <ul className="space-y-3">
                     {SOCIAL_LINKS.map((link) => (
@@ -63,24 +81,6 @@ export default function Navbar() {
                         >
                           {link.name}
                         </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-muted mb-5 md:mb-8 text-sm uppercase tracking-wider">MENU</p>
-                  <ul className="space-y-3">
-                    {MENU_LINKS.map((link) => (
-                      <li key={link.name}>
-                        <button
-                          onClick={() => {
-                            setOpen(false);
-                            document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' });
-                          }}
-                          className="group text-xl flex items-center gap-3 transition-colors"
-                        >
-                          {link.name}
-                        </button>
                       </li>
                     ))}
                   </ul>

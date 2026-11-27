@@ -35,7 +35,7 @@ export default function Contact() {
 
         <button
           onClick={handleCopyEmail}
-          className="inline-flex items-center gap-2 mt-10 mb-14 font-anton leading-none text-3xl sm:text-5xl md:text-6xl break-all hover:text-accent transition-colors group"
+          className="inline-flex items-start gap-2 mt-10 mb-14 font-anton leading-none text-3xl sm:text-5xl md:text-6xl break-words hover:text-accent transition-colors group max-w-full"
         >
           {GENERAL_INFO.email}
           {copied ? (
